@@ -293,6 +293,15 @@ function closePDFModal() {
     }
 }
 
+// Summit Magazine function
+function openSummitMagazine() {
+    // Create a simple alert for now, can be replaced with actual PDF functionality
+    alert('Summit Magazine PDF functionality will be implemented soon. Please check back later!');
+    
+    // Alternative: Open a placeholder or redirect to a PDF if available
+    // window.open('assets/summit-magazine-feature.pdf', '_blank');
+}
+
 // Performance optimization
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
