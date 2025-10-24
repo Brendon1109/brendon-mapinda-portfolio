@@ -249,6 +249,50 @@ window.addEventListener('error', (e) => {
     }
 });
 
+// PDF Modal functionality
+function openPDFModal(pdfUrl, title) {
+    // Create PDF modal if it doesn't exist
+    let pdfModal = document.getElementById('pdfModal');
+    if (!pdfModal) {
+        pdfModal = document.createElement('div');
+        pdfModal.id = 'pdfModal';
+        pdfModal.className = 'modal pdf-modal';
+        pdfModal.innerHTML = `
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="pdfTitle">${title}</h3>
+                    <span class="close" onclick="closePDFModal()">&times;</span>
+                </div>
+                <div class="modal-body">
+                    <iframe id="pdfFrame" src="${pdfUrl}" frameborder="0"></iframe>
+                </div>
+            </div>
+        `;
+        document.body.appendChild(pdfModal);
+    } else {
+        // Update existing modal
+        document.getElementById('pdfTitle').textContent = title;
+        document.getElementById('pdfFrame').src = pdfUrl;
+    }
+    
+    // Show modal
+    pdfModal.style.display = 'flex';
+    
+    // Close on outside click
+    pdfModal.addEventListener('click', function(e) {
+        if (e.target === pdfModal) {
+            closePDFModal();
+        }
+    });
+}
+
+function closePDFModal() {
+    const pdfModal = document.getElementById('pdfModal');
+    if (pdfModal) {
+        pdfModal.style.display = 'none';
+    }
+}
+
 // Performance optimization
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
