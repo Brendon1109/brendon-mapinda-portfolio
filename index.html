@@ -57,7 +57,7 @@
             </div>
             <div class="hero-image">
                 <div class="image-placeholder">
-                    <img src="profile picture/WhatsApp Image 2025-10-24 at 17.08.20_c7447e14.jpg" alt="Brendon Mapinda" class="profile-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <img src="profile picture/artistic-profile.jpg" alt="Brendon Mapinda" class="profile-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                     <i class="fas fa-camera" style="display:none;"></i>
                 </div>
             </div>
@@ -190,50 +190,53 @@
                 
                 <div class="discography">
                     <h3>Discography</h3>
-                    <div class="albums">
-                        <a href="https://distrokid.com/hyperfollow/kingbreazy/road-to-success-love-tales" target="_blank" class="album">
+                    <div class="discography-grid">
+                        <div class="album-card">
                             <h4>High School Moments (2015)</h4>
-                            <p>Debut mixtape - Click to listen on all platforms</p>
-                        </a>
-                        <a href="https://distrokid.com/hyperfollow/kingbreazy/road-to-success-love-tales" target="_blank" class="album">
+                            <p>Debut mixtape</p>
+                        </div>
+                        <div class="album-card">
                             <h4>African American (2016)</h4>
-                            <p>First studio album - Click to listen on all platforms</p>
-                        </a>
-                        <a href="https://distrokid.com/hyperfollow/kingbreazy/road-to-success-love-tales" target="_blank" class="album">
+                            <p>First studio album</p>
+                        </div>
+                        <div class="album-card">
                             <h4>Road To Success (2019)</h4>
-                            <p>Double mixtape: Love Tales & Life Tales - Click to listen on all platforms</p>
-                        </a>
-                        <a href="https://distrokid.com/hyperfollow/kingbreazy/road-to-success-love-tales" target="_blank" class="album">
+                            <p>Double mixtape: Love Tales & Life Tales</p>
+                        </div>
+                        <div class="album-card">
                             <h4>Tisvikewo (2022)</h4>
-                            <p>Latest mixtape showing artistic maturity - Click to listen on all platforms</p>
-                        </a>
+                            <p>Latest mixtape showing artistic maturity</p>
+                        </div>
                     </div>
                 </div>
                 
                 <div class="media-coverage">
                     <h3>Media Coverage & Press</h3>
-                    <div class="media-links">
-                        <a href="https://www.heraldonline.co.zw/mutare-hip-hop-emcee-in-the-making/" target="_blank" class="media-link">
-                            <i class="fas fa-newspaper"></i>
-                            <div>
+                    <div class="media-buttons">
+                        <button class="media-btn" onclick="window.open('https://www.heraldonline.co.zw/mutare-hip-hop-emcee-in-the-making/', '_blank')">
+                            <div class="btn-icon">📰</div>
+                            <div class="btn-content">
                                 <h4>Herald Online</h4>
                                 <p>Mutare Hip-Hop Emcee in the Making</p>
                             </div>
-                        </a>
-                        <a href="https://www.pressreader.com/zimbabwe/the-herald-zimbabwe/20180714/281831464504548" target="_blank" class="media-link">
-                            <i class="fas fa-newspaper"></i>
-                            <div>
+                            <div class="btn-arrow">→</div>
+                        </button>
+                        <button class="media-btn" onclick="window.open('https://www.pressreader.com/zimbabwe/the-herald-zimbabwe/20180714/281831464504548', '_blank')">
+                            <div class="btn-icon">📺</div>
+                            <div class="btn-content">
                                 <h4>The Herald Zimbabwe</h4>
                                 <p>National Newspaper Feature</p>
                             </div>
-                        </a>
-                        <a href="#" onclick="openSummitMagazine()" class="media-link">
-                            <i class="fas fa-file-pdf"></i>
-                            <div>
+                            <div class="btn-arrow">→</div>
+                        </button>
+                        <button class="media-btn" onclick="openSummitMagazine()">
+                            <div class="btn-icon">📖</div>
+                            <div class="btn-content">
                                 <h4>The Summit Magazine</h4>
                                 <p>Front Cover Feature - Click to view PDF</p>
                             </div>
-                        </a>
+                            <div class="btn-arrow">→</div>
+                        </button>
                     </div>
                 </div>
                 
@@ -332,11 +335,6 @@
             </div>
         </div>
     </div>
-
-    <!-- Learn More Trigger Button -->
-    <button id="aiBotTrigger" class="ai-bot-trigger">
-        ℹ️ Who is Brendon?
-    </button>
 
     <script src="js/ai-bot.js"></script>
     <script src="js/script.js"></script>

@@ -276,12 +276,83 @@ body {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: center;
     border-radius: 50%;
     z-index: 1;
     position: relative;
+    filter: drop-shadow(0 8px 20px rgba(70, 63, 54, 0.3));
+    transition: all 0.3s ease;
 }
 
-/* Media Coverage Styles */
+.profile-img:hover {
+    transform: scale(1.05);
+    filter: drop-shadow(0 12px 30px rgba(70, 63, 54, 0.4));
+}
+
+/* Discography Styles */
+.discography {
+    margin-bottom: 3rem;
+}
+
+.discography h3 {
+    color: #4a453f;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.discography-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.album-card {
+    background: linear-gradient(145deg, #f5f2ed 0%, #e8e2da 100%);
+    padding: 2rem 1.5rem;
+    border-radius: 15px;
+    text-align: center;
+    border: 1px solid rgba(191, 180, 163, 0.3);
+    box-shadow: 
+        0 8px 25px rgba(70, 63, 54, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.album-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #c4a484, #a68b5b, #8b7355);
+}
+
+.album-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 
+        0 15px 35px rgba(70, 63, 54, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.album-card h4 {
+    color: #4a453f;
+    margin-bottom: 0.8rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.album-card p {
+    color: #6b5b4d;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    margin: 0;
+}
+
+/* Media Coverage Styles - Futuristic Buttons */
 .media-coverage {
     margin-bottom: 3rem;
 }
@@ -292,48 +363,105 @@ body {
     text-align: center;
 }
 
-.media-links {
+.media-buttons {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 1.5rem;
 }
 
-.media-link {
+.media-btn {
     display: flex;
     align-items: center;
     gap: 1rem;
     padding: 1.5rem;
-    background: linear-gradient(145deg, #f5f2ed 0%, #e8e2da 100%);
-    border-radius: 12px;
-    text-decoration: none;
-    color: #463f36;
-    transition: all 0.3s ease;
-    border: 1px solid rgba(191, 180, 163, 0.3);
-    box-shadow: 0 4px 15px rgba(70, 63, 54, 0.1);
+    background: linear-gradient(135deg, #f7f5f3 0%, #ebe5df 100%);
+    border: 1px solid rgba(196, 164, 132, 0.3);
+    border-radius: 16px;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 
+        0 8px 25px rgba(70, 63, 54, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
-.media-link:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(70, 63, 54, 0.15);
-    background: linear-gradient(145deg, #ede9e3 0%, #d9d2c7 100%);
+.media-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #c4a484, transparent);
+    transition: left 0.6s ease;
 }
 
-.media-link i {
-    font-size: 2rem;
-    color: #c4a484;
-    min-width: 40px;
+.media-btn:hover::before {
+    left: 100%;
 }
 
-.media-link h4 {
+.media-btn:hover {
+    transform: translateY(-3px) scale(1.02);
+    background: linear-gradient(135deg, #f0ede8 0%, #e3ddd5 100%);
+    border-color: rgba(196, 164, 132, 0.5);
+    box-shadow: 
+        0 15px 40px rgba(70, 63, 54, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.media-btn:active {
+    transform: translateY(-1px) scale(1.01);
+}
+
+.btn-icon {
+    font-size: 2.5rem;
+    min-width: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    filter: drop-shadow(0 2px 4px rgba(70, 63, 54, 0.1));
+}
+
+.btn-content {
+    flex: 1;
+    text-align: left;
+}
+
+.btn-content h4 {
     margin: 0 0 0.5rem 0;
-    color: #463f36;
+    color: #4a453f;
     font-size: 1.1rem;
+    font-weight: 600;
+    background: linear-gradient(45deg, #4a453f, #6b5b4d);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
-.media-link p {
+.btn-content p {
     margin: 0;
     color: #6b5b4d;
     font-size: 0.9rem;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+}
+
+.media-btn:hover .btn-content p {
+    opacity: 1;
+}
+
+.btn-arrow {
+    font-size: 1.5rem;
+    color: #c4a484;
+    transition: transform 0.3s ease;
+    min-width: 30px;
+    text-align: center;
+}
+
+.media-btn:hover .btn-arrow {
+    transform: translateX(5px);
+    color: #a68b5b;
 }
 
 /* Sections */
@@ -924,55 +1052,6 @@ body {
     transform: translateY(-3px);
     box-shadow: 0 8px 25px rgba(26, 23, 20, 0.3);
     border-color: rgba(212, 197, 176, 0.4);
-}
-
-/* AI Bot Styles */
-.ai-bot-trigger {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    background: linear-gradient(135deg, #c4a484 0%, #a68b5b 50%, #9d7c4c 100%);
-    color: #f7f5f3;
-    border: none;
-    padding: 15px 25px;
-    border-radius: 50px;
-    font-size: 1.1rem;
-    font-weight: 600;
-    cursor: pointer;
-    box-shadow: 
-        0 8px 30px rgba(157, 124, 76, 0.4),
-        0 4px 15px rgba(196, 164, 132, 0.3);
-    transition: all 0.3s ease;
-    z-index: 1000;
-    animation: pulse 2s infinite;
-    border: 2px solid rgba(247, 245, 243, 0.2);
-    backdrop-filter: blur(10px);
-}
-
-.ai-bot-trigger:hover {
-    transform: translateY(-5px) scale(1.05);
-    box-shadow: 
-        0 12px 40px rgba(157, 124, 76, 0.5),
-        0 6px 20px rgba(196, 164, 132, 0.4);
-    background: linear-gradient(135deg, #b49d83 0%, #9d7c4c 50%, #8b6f3f 100%);
-}
-
-@keyframes pulse {
-    0% {
-        box-shadow: 
-            0 8px 30px rgba(157, 124, 76, 0.4),
-            0 4px 15px rgba(196, 164, 132, 0.3);
-    }
-    50% {
-        box-shadow: 
-            0 8px 30px rgba(157, 124, 76, 0.6),
-            0 4px 15px rgba(196, 164, 132, 0.5);
-    }
-    100% {
-        box-shadow: 
-            0 8px 30px rgba(157, 124, 76, 0.4),
-            0 4px 15px rgba(196, 164, 132, 0.3);
-    }
 }
 
 /* Modal Styles */
