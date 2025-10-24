@@ -1,0 +1,18 @@
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://brendon1109.github.io/brendon-mapinda-portfolio/sitemap.xml
+
+# Specific pages
+Allow: /index.html
+Allow: /qr-code-generator.html
+Allow: /css/
+Allow: /js/
+Allow: /assets/
+Allow: /profile picture/
+
+# Block any test or private files
+Disallow: /deploy.bat
+Disallow: /DEPLOYMENT.md
+Disallow: /README.md
