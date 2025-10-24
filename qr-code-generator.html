@@ -109,10 +109,28 @@
         function downloadQR() {
             const canvas = document.querySelector('#qrcode canvas');
             if (canvas) {
+                // Create a temporary canvas to ensure proper image data
+                const tempCanvas = document.createElement('canvas');
+                const tempCtx = tempCanvas.getContext('2d');
+                tempCanvas.width = canvas.width;
+                tempCanvas.height = canvas.height;
+                
+                // Draw white background first
+                tempCtx.fillStyle = '#ffffff';
+                tempCtx.fillRect(0, 0, tempCanvas.width, tempCanvas.height);
+                
+                // Draw the QR code on top
+                tempCtx.drawImage(canvas, 0, 0);
+                
+                // Download the image
                 const link = document.createElement('a');
                 link.download = 'brendon-portfolio-qr-code.png';
-                link.href = canvas.toDataURL();
+                link.href = tempCanvas.toDataURL('image/png');
+                document.body.appendChild(link);
                 link.click();
+                document.body.removeChild(link);
+            } else {
+                alert('QR Code not ready yet. Please wait a moment and try again.');
             }
         }
     </script>

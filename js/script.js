@@ -295,8 +295,28 @@ function closePDFModal() {
 
 // Summit Magazine function
 function openSummitMagazine() {
-    // Open the actual PDF in a new tab
-    window.open('assets/summit-magazine-feature.pdf', '_blank');
+    // Try to open the PDF in a new tab
+    const pdfUrl = 'assets/summit-magazine-feature.pdf';
+    
+    // First try to open directly
+    const newWindow = window.open(pdfUrl, '_blank');
+    
+    // If popup was blocked or failed, show fallback
+    if (!newWindow || newWindow.closed || typeof newWindow.closed == 'undefined') {
+        // Fallback: Create a download link
+        const link = document.createElement('a');
+        link.href = pdfUrl;
+        link.download = 'Summit-Magazine-Brendon-Feature.pdf';
+        link.target = '_blank';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
+        // Show user-friendly message
+        setTimeout(() => {
+            alert('PDF download started! If the download didn\'t start automatically, please disable your popup blocker and try again.');
+        }, 500);
+    }
 }
 
 // Performance optimization
