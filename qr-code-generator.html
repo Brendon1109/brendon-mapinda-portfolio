@@ -88,47 +88,83 @@
     </div>
 
     <script>
-        // Generate QR Code
+        // Generate QR Code with better settings for scanning
         const websiteUrl = 'https://brendon1109.github.io/brendon-mapinda-portfolio/';
         
         QRCode.toCanvas(document.getElementById('qrcode'), websiteUrl, {
-            width: 300,
-            height: 300,
+            width: 400,
+            height: 400,
             color: {
-                dark: '#4a453f',
-                light: '#ffffff'
+                dark: '#000000',  // Pure black for better contrast
+                light: '#ffffff'  // Pure white background
             },
-            margin: 2,
-            errorCorrectionLevel: 'M'
+            margin: 4,  // Larger margin for better scanning
+            errorCorrectionLevel: 'H',  // High error correction
+            type: 'image/png',
+            quality: 1.0,
+            scale: 8  // Higher scale for better quality
         }, function (error) {
-            if (error) console.error(error);
-            console.log('QR Code generated successfully!');
+            if (error) {
+                console.error(error);
+                // Fallback: create a simple text link
+                document.getElementById('qrcode').innerHTML = `
+                    <p style="color: #c4a484; font-weight: bold;">
+                        QR Code generation failed. 
+                        <a href="${websiteUrl}" target="_blank" style="color: #a68b5b;">
+                            Click here to visit the portfolio
+                        </a>
+                    </p>
+                `;
+            } else {
+                console.log('High-quality QR Code generated successfully!');
+                // Auto-download the better QR code
+                setTimeout(() => {
+                    const canvas = document.querySelector('#qrcode canvas');
+                    if (canvas) {
+                        const link = document.createElement('a');
+                        link.download = 'brendon-portfolio-qr-code-hq.png';
+                        link.href = canvas.toDataURL('image/png', 1.0);
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                        console.log('High-quality QR code downloaded');
+                    }
+                }, 1000);
+            }
         });
         
-        // Download QR Code function
+        // Enhanced download QR Code function
         function downloadQR() {
             const canvas = document.querySelector('#qrcode canvas');
             if (canvas) {
-                // Create a temporary canvas to ensure proper image data
+                // Create a higher quality version
                 const tempCanvas = document.createElement('canvas');
                 const tempCtx = tempCanvas.getContext('2d');
-                tempCanvas.width = canvas.width;
-                tempCanvas.height = canvas.height;
+                
+                // Make it even larger for printing
+                const scale = 2;
+                tempCanvas.width = canvas.width * scale;
+                tempCanvas.height = canvas.height * scale;
+                
+                // Use better image smoothing
+                tempCtx.imageSmoothingEnabled = false;
                 
                 // Draw white background first
                 tempCtx.fillStyle = '#ffffff';
                 tempCtx.fillRect(0, 0, tempCanvas.width, tempCanvas.height);
                 
-                // Draw the QR code on top
-                tempCtx.drawImage(canvas, 0, 0);
+                // Draw the QR code on top with scaling
+                tempCtx.drawImage(canvas, 0, 0, tempCanvas.width, tempCanvas.height);
                 
-                // Download the image
+                // Download the high-quality image
                 const link = document.createElement('a');
-                link.download = 'brendon-portfolio-qr-code.png';
-                link.href = tempCanvas.toDataURL('image/png');
+                link.download = 'brendon-portfolio-qr-code-hq.png';
+                link.href = tempCanvas.toDataURL('image/png', 1.0);
                 document.body.appendChild(link);
                 link.click();
                 document.body.removeChild(link);
+                
+                alert('High-quality QR code downloaded! This version should scan much better.');
             } else {
                 alert('QR Code not ready yet. Please wait a moment and try again.');
             }

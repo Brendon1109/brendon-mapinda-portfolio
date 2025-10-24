@@ -537,6 +537,24 @@ body {
     opacity: 0.8;
 }
 
+.qr-fallback {
+    margin-top: 1rem !important;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(196, 164, 132, 0.2);
+}
+
+.qr-fallback a {
+    color: #c4a484;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.qr-fallback a:hover {
+    color: #a68b5b;
+    text-decoration: underline;
+}
+
 /* Contact Links Styles */
 .contact-item a {
     color: #c4a484;

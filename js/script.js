@@ -321,31 +321,64 @@ function openSummitMagazine() {
 
 // QR Code Sharing Functions
 function shareQROnWhatsApp() {
-    const websiteUrl = 'https://brendon1109.github.io/brendon-mapinda-portfolio/';
-    const message = `Check out Brendon Mapinda's professional portfolio! 🎯\n\n📱 Scan the QR code or visit: ${websiteUrl}\n\nCinematographer | Data Scientist | Musician\n\n#Portfolio #WebDevelopment #DataScience #Music`;
-    const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, '_blank');
+    try {
+        const websiteUrl = 'https://brendon1109.github.io/brendon-mapinda-portfolio/';
+        const message = `Check out Brendon Mapinda's professional portfolio! 🎯\n\n📱 Scan the QR code or visit: ${websiteUrl}\n\nCinematographer | Data Scientist | Musician\n\n#Portfolio #WebDevelopment #DataScience #Music`;
+        const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
+        window.open(whatsappUrl, '_blank');
+        showShareMessage('Opening WhatsApp... 📱');
+    } catch (error) {
+        console.error('WhatsApp share error:', error);
+        alert('WhatsApp sharing is not available on this device.');
+    }
 }
 
 function shareQRByEmail() {
-    const websiteUrl = 'https://brendon1109.github.io/brendon-mapinda-portfolio/';
-    const subject = 'Check out Brendon Mapinda\'s Professional Portfolio';
-    const body = `Hi there!\n\nI wanted to share Brendon Mapinda's impressive professional portfolio with you.\n\nHe's a multi-talented professional working as a Cinematographer, Data Scientist, and Musician.\n\nYou can visit his portfolio here: ${websiteUrl}\n\nOr scan the QR code I'm sharing for quick access on your mobile device.\n\nBest regards!`;
-    
-    const mailtoUrl = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    window.location.href = mailtoUrl;
+    try {
+        const websiteUrl = 'https://brendon1109.github.io/brendon-mapinda-portfolio/';
+        const subject = 'Check out Brendon Mapinda\'s Professional Portfolio';
+        const body = `Hi there!\n\nI wanted to share Brendon Mapinda's impressive professional portfolio with you.\n\nHe's a multi-talented professional working as a Cinematographer, Data Scientist, and Musician.\n\nYou can visit his portfolio here: ${websiteUrl}\n\nOr scan the QR code I'm sharing for quick access on your mobile device.\n\nBest regards!`;
+        
+        const mailtoUrl = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        window.location.href = mailtoUrl;
+        showShareMessage('Opening email client... 📧');
+    } catch (error) {
+        console.error('Email share error:', error);
+        alert('Email client not available. Please copy the link manually.');
+    }
 }
 
 function downloadQRCode() {
-    const qrImage = document.getElementById('qrCodeImage');
-    if (qrImage) {
+    try {
+        const qrImage = document.getElementById('qrCodeImage');
+        if (!qrImage) {
+            alert('QR Code image not found. Please refresh the page and try again.');
+            return;
+        }
+
         // Create a canvas to convert the image
         const canvas = document.createElement('canvas');
         const ctx = canvas.getContext('2d');
         
+        // Wait for image to load if it hasn't already
+        if (!qrImage.complete) {
+            qrImage.onload = function() {
+                performDownload(qrImage, canvas, ctx);
+            };
+        } else {
+            performDownload(qrImage, canvas, ctx);
+        }
+    } catch (error) {
+        console.error('Download error:', error);
+        alert('Download failed. Please right-click the QR code and select "Save image as..."');
+    }
+}
+
+function performDownload(qrImage, canvas, ctx) {
+    try {
         // Set canvas size to match image
-        canvas.width = qrImage.naturalWidth || qrImage.width;
-        canvas.height = qrImage.naturalHeight || qrImage.height;
+        canvas.width = qrImage.naturalWidth || qrImage.width || 300;
+        canvas.height = qrImage.naturalHeight || qrImage.height || 300;
         
         // Draw the image on canvas
         ctx.drawImage(qrImage, 0, 0);
@@ -358,26 +391,39 @@ function downloadQRCode() {
         link.click();
         document.body.removeChild(link);
         
-        // Show success message
-        showShareMessage('QR Code saved to your downloads! 📥');
-    } else {
-        alert('QR Code not found. Please try again.');
+        showShareMessage('QR Code saved to downloads! 📥');
+    } catch (error) {
+        console.error('Canvas download error:', error);
+        // Fallback: try direct image download
+        const link = document.createElement('a');
+        link.download = 'brendon-mapinda-portfolio-qr-code.png';
+        link.href = qrImage.src;
+        link.target = '_blank';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        showShareMessage('QR Code download attempted! 📥');
     }
 }
 
 function copyQRLink() {
-    const websiteUrl = 'https://brendon1109.github.io/brendon-mapinda-portfolio/';
-    
-    if (navigator.clipboard && window.isSecureContext) {
-        // Use modern clipboard API
-        navigator.clipboard.writeText(websiteUrl).then(() => {
-            showShareMessage('Portfolio link copied to clipboard! 📋');
-        }).catch(() => {
+    try {
+        const websiteUrl = 'https://brendon1109.github.io/brendon-mapinda-portfolio/';
+        
+        if (navigator.clipboard && window.isSecureContext) {
+            // Use modern clipboard API
+            navigator.clipboard.writeText(websiteUrl).then(() => {
+                showShareMessage('Portfolio link copied to clipboard! 📋');
+            }).catch(() => {
+                fallbackCopyText(websiteUrl);
+            });
+        } else {
+            // Fallback for older browsers
             fallbackCopyText(websiteUrl);
-        });
-    } else {
-        // Fallback for older browsers
-        fallbackCopyText(websiteUrl);
+        }
+    } catch (error) {
+        console.error('Copy link error:', error);
+        fallbackCopyText('https://brendon1109.github.io/brendon-mapinda-portfolio/');
     }
 }
 
@@ -402,36 +448,50 @@ function fallbackCopyText(text) {
 }
 
 function showShareMessage(message) {
-    // Create a temporary message element
-    const messageDiv = document.createElement('div');
-    messageDiv.textContent = message;
-    messageDiv.style.cssText = `
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        background: linear-gradient(135deg, #c4a484 0%, #a68b5b 100%);
-        color: white;
-        padding: 1rem 1.5rem;
-        border-radius: 10px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        z-index: 10000;
-        font-weight: 500;
-        font-size: 0.9rem;
-        transition: all 0.3s ease;
-    `;
-    
-    document.body.appendChild(messageDiv);
-    
-    // Remove message after 3 seconds
-    setTimeout(() => {
-        messageDiv.style.opacity = '0';
-        messageDiv.style.transform = 'translateY(-20px)';
+    try {
+        console.log('Showing message:', message);
+        
+        // Create a temporary message element
+        const messageDiv = document.createElement('div');
+        messageDiv.textContent = message;
+        messageDiv.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #c4a484 0%, #a68b5b 100%);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            z-index: 10000;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        `;
+        
+        document.body.appendChild(messageDiv);
+        
+        // Remove message after 3 seconds
         setTimeout(() => {
-            if (messageDiv.parentNode) {
-                messageDiv.parentNode.removeChild(messageDiv);
-            }
-        }, 300);
-    }, 3000);
+            messageDiv.style.opacity = '0';
+            messageDiv.style.transform = 'translateY(-20px)';
+            setTimeout(() => {
+                if (messageDiv.parentNode) {
+                    messageDiv.parentNode.removeChild(messageDiv);
+                }
+            }, 300);
+        }, 3000);
+    } catch (error) {
+        console.error('Show message error:', error);
+        // Fallback to alert
+        alert(message);
+    }
+}
+
+// Debug function to test if buttons are working
+function testQRButtons() {
+    console.log('QR sharing functions loaded successfully!');
+    showShareMessage('QR sharing functions are working! 🎉');
 }
 
 // Performance optimization
