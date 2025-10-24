@@ -1,0 +1,38 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Serve Website Locally",
+            "type": "shell",
+            "command": "python",
+            "args": ["-m", "http.server", "8000"],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "new"
+            },
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [],
+            "detail": "Start a local HTTP server on port 8000 to serve the website"
+        },
+        {
+            "label": "Open Website in Browser",
+            "type": "shell",
+            "command": "start",
+            "args": ["http://localhost:8000"],
+            "group": "build",
+            "dependsOn": "Serve Website Locally",
+            "presentation": {
+                "echo": true,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "shared"
+            },
+            "detail": "Open the website in the default browser"
+        }
+    ]
+}
