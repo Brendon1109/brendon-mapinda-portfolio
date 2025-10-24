@@ -319,6 +319,121 @@ function openSummitMagazine() {
     }
 }
 
+// QR Code Sharing Functions
+function shareQROnWhatsApp() {
+    const websiteUrl = 'https://brendon1109.github.io/brendon-mapinda-portfolio/';
+    const message = `Check out Brendon Mapinda's professional portfolio! 🎯\n\n📱 Scan the QR code or visit: ${websiteUrl}\n\nCinematographer | Data Scientist | Musician\n\n#Portfolio #WebDevelopment #DataScience #Music`;
+    const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
+}
+
+function shareQRByEmail() {
+    const websiteUrl = 'https://brendon1109.github.io/brendon-mapinda-portfolio/';
+    const subject = 'Check out Brendon Mapinda\'s Professional Portfolio';
+    const body = `Hi there!\n\nI wanted to share Brendon Mapinda's impressive professional portfolio with you.\n\nHe's a multi-talented professional working as a Cinematographer, Data Scientist, and Musician.\n\nYou can visit his portfolio here: ${websiteUrl}\n\nOr scan the QR code I'm sharing for quick access on your mobile device.\n\nBest regards!`;
+    
+    const mailtoUrl = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.location.href = mailtoUrl;
+}
+
+function downloadQRCode() {
+    const qrImage = document.getElementById('qrCodeImage');
+    if (qrImage) {
+        // Create a canvas to convert the image
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        
+        // Set canvas size to match image
+        canvas.width = qrImage.naturalWidth || qrImage.width;
+        canvas.height = qrImage.naturalHeight || qrImage.height;
+        
+        // Draw the image on canvas
+        ctx.drawImage(qrImage, 0, 0);
+        
+        // Create download link
+        const link = document.createElement('a');
+        link.download = 'brendon-mapinda-portfolio-qr-code.png';
+        link.href = canvas.toDataURL('image/png');
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
+        // Show success message
+        showShareMessage('QR Code saved to your downloads! 📥');
+    } else {
+        alert('QR Code not found. Please try again.');
+    }
+}
+
+function copyQRLink() {
+    const websiteUrl = 'https://brendon1109.github.io/brendon-mapinda-portfolio/';
+    
+    if (navigator.clipboard && window.isSecureContext) {
+        // Use modern clipboard API
+        navigator.clipboard.writeText(websiteUrl).then(() => {
+            showShareMessage('Portfolio link copied to clipboard! 📋');
+        }).catch(() => {
+            fallbackCopyText(websiteUrl);
+        });
+    } else {
+        // Fallback for older browsers
+        fallbackCopyText(websiteUrl);
+    }
+}
+
+function fallbackCopyText(text) {
+    const textArea = document.createElement('textarea');
+    textArea.value = text;
+    textArea.style.position = 'fixed';
+    textArea.style.left = '-999999px';
+    textArea.style.top = '-999999px';
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+    
+    try {
+        document.execCommand('copy');
+        showShareMessage('Portfolio link copied! 📋');
+    } catch (err) {
+        prompt('Copy this link:', text);
+    } finally {
+        textArea.remove();
+    }
+}
+
+function showShareMessage(message) {
+    // Create a temporary message element
+    const messageDiv = document.createElement('div');
+    messageDiv.textContent = message;
+    messageDiv.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: linear-gradient(135deg, #c4a484 0%, #a68b5b 100%);
+        color: white;
+        padding: 1rem 1.5rem;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        z-index: 10000;
+        font-weight: 500;
+        font-size: 0.9rem;
+        transition: all 0.3s ease;
+    `;
+    
+    document.body.appendChild(messageDiv);
+    
+    // Remove message after 3 seconds
+    setTimeout(() => {
+        messageDiv.style.opacity = '0';
+        messageDiv.style.transform = 'translateY(-20px)';
+        setTimeout(() => {
+            if (messageDiv.parentNode) {
+                messageDiv.parentNode.removeChild(messageDiv);
+            }
+        }, 300);
+    }, 3000);
+}
+
 // Performance optimization
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {

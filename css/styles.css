@@ -597,6 +597,81 @@ body {
     font-weight: 500;
 }
 
+/* QR Code Share Options */
+.qr-share-options {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(196, 164, 132, 0.2);
+}
+
+.qr-share-options h4 {
+    color: #4a453f;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.share-buttons {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.8rem;
+}
+
+.share-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.8rem 1rem;
+    border: none;
+    border-radius: 10px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    background: linear-gradient(135deg, #f0ede8 0%, #e3ddd5 100%);
+    color: #4a453f;
+    border: 1px solid rgba(196, 164, 132, 0.2);
+}
+
+.share-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(70, 63, 54, 0.15);
+}
+
+.whatsapp-share:hover {
+    background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+    color: white;
+    border-color: #25D366;
+}
+
+.email-share:hover {
+    background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+    color: white;
+    border-color: #3498db;
+}
+
+.download-share:hover {
+    background: linear-gradient(135deg, #c4a484 0%, #a68b5b 100%);
+    color: white;
+    border-color: #c4a484;
+}
+
+.copy-share:hover {
+    background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);
+    color: white;
+    border-color: #9b59b6;
+}
+
+.share-btn i {
+    font-size: 1rem;
+}
+
+.share-btn span {
+    font-size: 0.85rem;
+}
+
 /* Sections */
 .section {
     padding: 80px 0;
@@ -1562,5 +1637,16 @@ body {
         padding: 0.7rem 1rem;
         font-size: 0.95rem;
         justify-content: center;
+    }
+    
+    /* QR Share Mobile Styles */
+    .share-buttons {
+        grid-template-columns: 1fr;
+        gap: 0.6rem;
+    }
+    
+    .share-btn {
+        padding: 1rem;
+        font-size: 0.9rem;
     }
 }

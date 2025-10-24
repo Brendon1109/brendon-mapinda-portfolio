@@ -311,9 +311,31 @@
                     <div class="qr-code-item">
                         <h3>Scan to Visit</h3>
                         <div class="qr-code-container">
-                            <img src="profile picture/frame.png" alt="QR Code - Brendon Mapinda Portfolio" class="qr-code-img">
+                            <img src="profile picture/frame.png" alt="QR Code - Brendon Mapinda Portfolio" class="qr-code-img" id="qrCodeImage">
                         </div>
                         <p>Scan with your phone camera to visit this portfolio</p>
+                        
+                        <div class="qr-share-options">
+                            <h4>Share QR Code</h4>
+                            <div class="share-buttons">
+                                <button class="share-btn whatsapp-share" onclick="shareQROnWhatsApp()">
+                                    <i class="fab fa-whatsapp"></i>
+                                    <span>WhatsApp</span>
+                                </button>
+                                <button class="share-btn email-share" onclick="shareQRByEmail()">
+                                    <i class="fas fa-envelope"></i>
+                                    <span>Email</span>
+                                </button>
+                                <button class="share-btn download-share" onclick="downloadQRCode()">
+                                    <i class="fas fa-download"></i>
+                                    <span>Save</span>
+                                </button>
+                                <button class="share-btn copy-share" onclick="copyQRLink()">
+                                    <i class="fas fa-link"></i>
+                                    <span>Copy Link</span>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
