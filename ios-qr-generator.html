@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iOS-Optimized QR Code Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 30px auto;
+            padding: 20px;
+            text-align: center;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .url {
+            background: #f8f8f8;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            word-break: break-all;
+            font-family: monospace;
+            font-size: 14px;
+        }
+        .qr-container {
+            margin: 30px 0;
+            padding: 20px;
+            background: white;
+            border: 2px solid #000;
+            border-radius: 10px;
+            display: inline-block;
+        }
+        .qr-code {
+            width: 350px;
+            height: 350px;
+            margin: 0 auto;
+            background: white;
+        }
+        .download-btn {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px;
+        }
+        .download-btn:hover {
+            background: #0056b3;
+        }
+        .ios-tips {
+            background: #e7f3ff;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: left;
+        }
+        .ios-tips h3 {
+            color: #0066cc;
+            margin-bottom: 15px;
+        }
+        .tip {
+            margin: 8px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+        .tip:before {
+            content: "📱";
+            position: absolute;
+            left: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📱 iOS-Optimized QR Code</h1>
+        <div class="url">https://brendon1109.github.io/brendon-mapinda-portfolio/</div>
+        
+        <div class="qr-container">
+            <img class="qr-code" 
+                 src="https://api.qrserver.com/v1/create-qr-code/?size=350x350&format=png&ecc=H&margin=20&qzone=2&color=000000&bgcolor=ffffff&data=https://brendon1109.github.io/brendon-mapinda-portfolio/" 
+                 alt="iOS-optimized QR Code"
+                 onload="document.getElementById('downloadBtn').style.display='inline-block'">
+        </div>
+        
+        <button id="downloadBtn" class="download-btn" onclick="downloadQR()" style="display:none;">
+            📥 Download iOS-Compatible QR Code
+        </button>
+        
+        <div class="ios-tips">
+            <h3>🍎 iOS Scanning Tips:</h3>
+            <div class="tip">Open Camera app (not a third-party scanner)</div>
+            <div class="tip">Hold phone 6-12 inches from QR code</div>
+            <div class="tip">Ensure good lighting (avoid shadows/glare)</div>
+            <div class="tip">Keep phone steady for 2-3 seconds</div>
+            <div class="tip">Tap the notification that appears at top</div>
+        </div>
+        
+        <div style="background: #fff3cd; padding: 15px; border-radius: 10px; margin: 20px 0;">
+            <strong>⚠️ This QR code is optimized for iOS with:</strong><br>
+            • Pure black (#000000) and white (#ffffff) colors<br>
+            • High error correction level (H)<br>
+            • Larger size (350x350px)<br>
+            • Clean margins and proper formatting
+        </div>
+        
+        <div style="background: #d4edda; padding: 15px; border-radius: 10px; margin: 20px 0;">
+            <strong>✅ After downloading:</strong><br>
+            1. Save as "frame.png"<br>
+            2. Replace old file in "profile picture" folder<br>
+            3. Test with iPhone Camera app<br>
+            4. Commit and push to GitHub
+        </div>
+    </div>
+
+    <script>
+        function downloadQR() {
+            const img = document.querySelector('.qr-code');
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            
+            // Make it high resolution for iOS
+            canvas.width = 400;
+            canvas.height = 400;
+            
+            // Fill with pure white background
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw the QR code
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+            
+            // Download
+            const link = document.createElement('a');
+            link.download = 'frame.png';
+            link.href = canvas.toDataURL('image/png', 1.0);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            alert('✅ iOS-optimized QR code downloaded!\n\n📱 Test with iPhone Camera app:\n1. Open Camera (not a scanner app)\n2. Point at QR code\n3. Tap the notification that appears\n\nReplace your old frame.png and push to GitHub!');
+        }
+        
+        // Test if QR code loaded properly
+        setTimeout(() => {
+            const img = document.querySelector('.qr-code');
+            if (!img.complete || img.naturalHeight === 0) {
+                alert('QR code failed to load. Please try refreshing the page or use Method 1 from the previous generator.');
+            }
+        }, 3000);
+    </script>
+</body>
+</html>

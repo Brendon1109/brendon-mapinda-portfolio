@@ -555,6 +555,28 @@ body {
     text-decoration: underline;
 }
 
+.qr-generator-link {
+    margin-top: 1rem !important;
+    padding-top: 0.5rem;
+    border-top: 1px solid rgba(196, 164, 132, 0.2);
+}
+
+.qr-generator-link a {
+    color: #c4a484;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.qr-generator-link a:hover {
+    color: #a68b5b;
+    text-decoration: underline;
+    transform: translateX(3px);
+}
+
 /* Contact Links Styles */
 .contact-item a {
     color: #c4a484;

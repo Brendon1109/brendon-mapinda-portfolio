@@ -88,16 +88,20 @@
     </div>
 
     <script>
-        // Generate QR Code with better settings for scanning
-        const websiteUrl = 'https://brendon1109.github.io/brendon-mapinda-portfolio/';
-        
-        QRCode.toCanvas(document.getElementById('qrcode'), websiteUrl, {
-            width: 400,
-            height: 400,
-            color: {
-                dark: '#000000',  // Pure black for better contrast
-                light: '#ffffff'  // Pure white background
-            },
+        // Wait for the page to fully load before generating QR code
+        window.addEventListener('load', function() {
+            // Generate QR Code with better settings for scanning
+            const websiteUrl = 'https://brendon1109.github.io/brendon-mapinda-portfolio/';
+            
+            console.log('Starting QR code generation...');
+            
+            QRCode.toCanvas(document.getElementById('qrcode'), websiteUrl, {
+                width: 400,
+                height: 400,
+                color: {
+                    dark: '#000000',  // Pure black for better contrast
+                    light: '#ffffff'  // Pure white background
+                },
             margin: 4,  // Larger margin for better scanning
             errorCorrectionLevel: 'H',  // High error correction
             type: 'image/png',

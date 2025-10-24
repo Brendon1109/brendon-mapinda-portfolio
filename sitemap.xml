@@ -36,4 +36,10 @@
         <changefreq>rarely</changefreq>
         <priority>0.5</priority>
     </url>
+    <url>
+        <loc>https://brendon1109.github.io/brendon-mapinda-portfolio/qr-generator.html</loc>
+        <lastmod>2025-10-24</lastmod>
+        <changefreq>rarely</changefreq>
+        <priority>0.6</priority>
+    </url>
 </urlset>
