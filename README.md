@@ -30,7 +30,7 @@ A modern, responsive website showcasing Brendon Mapinda's three main personas: P
 - 4+ years Data Analyst experience
 - 8+ months Data Engineer experience
 - 15+ certifications including DP-900 and Databricks
-- Aspiring Head of Analytical Engineering
+- Analytics Engineering Specialist
 
 #### 3. Music (King Breazy)
 - 10+ years in music industry since 2014
@@ -100,21 +100,20 @@ To create a QR code for the website:
 
 ## AI Integration Details
 
-### API Configuration
-- **Service**: Google Gemini API
-- **API Key**: Configured in `js/ai-bot.js`
-- **Rate Limiting**: 50 requests maximum
-- **Cost Limiting**: $1 maximum estimated cost
-- **Fallback**: Pre-written responses if API fails
+### Static Content System
+- **Service**: Static pre-written responses
+- **Configuration**: No external API dependencies
+- **Rate Limiting**: No limits (static content)
+- **Fallback**: Built-in persona-specific content
 
 ### Security Notes
-- API key is visible in client-side code (suitable for free tier with rate limits)
-- For production use, consider proxy server to hide API key
-- Current implementation includes cost and usage safeguards
+- No external API calls required
+- All content served statically
+- No authentication or keys needed
 
-### AI Capabilities
-- Generates personalized summaries for each persona
-- Contextual responses based on provided data
+### Content Capabilities
+- Provides personalized summaries for each persona
+- Contextual responses based on curated content
 - Error handling with user-friendly messages
 - Usage statistics tracking
 

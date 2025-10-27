@@ -39,7 +39,7 @@ Currently signed under a Cape Town-based distribution company, King Breazy has c
 
 With over 4 years and 4 months of experience as a Data Analyst and 8+ months as a Data Engineer, he brings practical expertise to complex data challenges. His certification portfolio includes DP-900 (Azure Data Fundamentals), Databricks Fundamentals, and over 15 additional data certifications.
 
-Brendon aspires to become a Head of Analytical Engineering, where he can leverage his technical skills and diverse background to provide innovative business solutions. His multidisciplinary approach, combining geological understanding with modern data science techniques, positions him uniquely in the analytics field.`
+As an Analytics Engineering Specialist, he leverages his technical skills and diverse background to provide innovative business solutions. His multidisciplinary approach, combining geological understanding with modern data science techniques, positions him uniquely in the analytics field.`
         };
 
         return fallbacks[persona];
