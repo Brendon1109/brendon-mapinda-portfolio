@@ -1780,12 +1780,13 @@ body {
         left: -100%;
         top: 70px;
         flex-direction: column;
-        background-color: white;
+        background-color: var(--primary-bg);
         width: 100%;
         text-align: center;
         transition: 0.3s;
-        box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
+        box-shadow: 0 10px 27px rgba(14, 27, 42, 0.2);
         padding: 2rem 0;
+        border-bottom: 1px solid rgba(74, 143, 163, 0.2);
     }
     
     .nav-menu.active {
