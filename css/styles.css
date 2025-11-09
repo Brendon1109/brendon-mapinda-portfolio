@@ -305,7 +305,7 @@ body {
 }
 
 .discography h3 {
-    color: #4a453f;
+    color: var(--neutral-dark);
     margin-bottom: 2rem;
     text-align: center;
 }
@@ -318,14 +318,14 @@ body {
 }
 
 .album-card {
-    background: linear-gradient(145deg, #f5f2ed 0%, #e8e2da 100%);
+    background: linear-gradient(145deg, rgba(27, 44, 60, 0.8) 0%, rgba(14, 27, 42, 0.9) 100%);
     padding: 2rem 1.5rem;
     border-radius: 15px;
     text-align: center;
-    border: 1px solid rgba(191, 180, 163, 0.3);
+    border: 1px solid rgba(74, 143, 163, 0.3);
     box-shadow: 
-        0 8px 25px rgba(70, 63, 54, 0.1),
-        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        0 8px 25px rgba(14, 27, 42, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
@@ -338,25 +338,25 @@ body {
     left: 0;
     right: 0;
     height: 3px;
-    background: linear-gradient(90deg, #c4a484, #a68b5b, #8b7355);
+    background: linear-gradient(90deg, var(--accent), var(--supporting), var(--accent));
 }
 
 .album-card:hover {
     transform: translateY(-5px);
     box-shadow: 
-        0 15px 35px rgba(70, 63, 54, 0.15),
-        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        0 15px 35px rgba(14, 27, 42, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
 .album-card h4 {
-    color: #4a453f;
+    color: var(--secondary-text);
     margin-bottom: 0.8rem;
     font-size: 1.2rem;
     font-weight: 600;
 }
 
 .album-card p {
-    color: #6b5b4d;
+    color: var(--supporting);
     font-size: 0.95rem;
     line-height: 1.4;
     margin: 0;
@@ -384,7 +384,7 @@ body {
     align-items: center;
     gap: 1rem;
     padding: 1.5rem;
-    background: linear-gradient(135deg, #f7f5f3 0%, #ebe5df 100%);
+    background: linear-gradient(135deg, var(--secondary-text) 0%, #ebe5df 100%);
     border: 1px solid rgba(196, 164, 132, 0.3);
     border-radius: 16px;
     cursor: pointer;
@@ -403,7 +403,7 @@ body {
     left: -100%;
     width: 100%;
     height: 2px;
-    background: linear-gradient(90deg, transparent, #c4a484, transparent);
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
     transition: left 0.6s ease;
 }
 
@@ -440,10 +440,10 @@ body {
 
 .btn-content h4 {
     margin: 0 0 0.5rem 0;
-    color: #4a453f;
+    color: var(--neutral-dark);
     font-size: 1.1rem;
     font-weight: 600;
-    background: linear-gradient(45deg, #4a453f, #6b5b4d);
+    background: linear-gradient(45deg, var(--neutral-dark), var(--neutral-dark));
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -451,7 +451,7 @@ body {
 
 .btn-content p {
     margin: 0;
-    color: #6b5b4d;
+    color: var(--neutral-dark);
     font-size: 0.9rem;
     opacity: 0.8;
     transition: opacity 0.3s ease;
@@ -463,7 +463,7 @@ body {
 
 .btn-arrow {
     font-size: 1.5rem;
-    color: #c4a484;
+    color: var(--accent);
     transition: transform 0.3s ease;
     min-width: 30px;
     text-align: center;
@@ -471,7 +471,7 @@ body {
 
 .media-btn:hover .btn-arrow {
     transform: translateX(5px);
-    color: #a68b5b;
+    color: var(--supporting);
 }
 
 /* QR Code Section Styles */
@@ -484,7 +484,7 @@ body {
 
 .qr-code-item {
     text-align: center;
-    background: linear-gradient(145deg, #f7f5f3 0%, #ede9e3 100%);
+    background: linear-gradient(145deg, var(--secondary-text) 0%, var(--secondary-bg) 100%);
     padding: 2.5rem 2rem;
     border-radius: 20px;
     box-shadow: 
@@ -503,11 +503,11 @@ body {
 }
 
 .qr-code-item h3 {
-    color: #4a453f;
+    color: var(--neutral-dark);
     margin-bottom: 1.5rem;
     font-size: 1.3rem;
     font-weight: 600;
-    background: linear-gradient(45deg, #4a453f, #6b5b4d);
+    background: linear-gradient(45deg, var(--neutral-dark), var(--neutral-dark));
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -540,7 +540,7 @@ body {
 }
 
 .qr-code-item p {
-    color: #6b5b4d;
+    color: var(--neutral-dark);
     font-size: 0.9rem;
     margin: 0;
     line-height: 1.4;
@@ -554,14 +554,14 @@ body {
 }
 
 .qr-fallback a {
-    color: #c4a484;
+    color: var(--accent);
     text-decoration: none;
     font-weight: 500;
     transition: color 0.3s ease;
 }
 
 .qr-fallback a:hover {
-    color: #a68b5b;
+    color: var(--supporting);
     text-decoration: underline;
 }
 
@@ -572,7 +572,7 @@ body {
 }
 
 .qr-generator-link a {
-    color: #c4a484;
+    color: var(--accent);
     text-decoration: none;
     font-weight: 500;
     transition: all 0.3s ease;
@@ -582,20 +582,20 @@ body {
 }
 
 .qr-generator-link a:hover {
-    color: #a68b5b;
+    color: var(--supporting);
     text-decoration: underline;
     transform: translateX(3px);
 }
 
 /* Contact Links Styles */
 .contact-item a {
-    color: #c4a484;
+    color: var(--accent);
     text-decoration: none;
     transition: color 0.3s ease;
 }
 
 .contact-item a:hover {
-    color: #a68b5b;
+    color: var(--supporting);
     text-decoration: underline;
 }
 
@@ -619,7 +619,7 @@ body {
 }
 
 .phone-link {
-    background: linear-gradient(135deg, #c4a484 0%, #a68b5b 100%);
+    background: linear-gradient(135deg, var(--accent) 0%, var(--supporting) 100%);
     color: white;
 }
 
@@ -642,7 +642,7 @@ body {
 
 .phone-number {
     font-size: 0.9rem;
-    color: #6b5b4d;
+    color: var(--neutral-dark);
     margin: 0;
     font-weight: 500;
 }
@@ -655,7 +655,7 @@ body {
 }
 
 .qr-share-options h4 {
-    color: #4a453f;
+    color: var(--neutral-dark);
     margin-bottom: 1rem;
     font-size: 1rem;
     font-weight: 600;
@@ -681,7 +681,7 @@ body {
     transition: all 0.3s ease;
     text-decoration: none;
     background: linear-gradient(135deg, #f0ede8 0%, #e3ddd5 100%);
-    color: #4a453f;
+    color: var(--neutral-dark);
     border: 1px solid rgba(196, 164, 132, 0.2);
 }
 
@@ -703,9 +703,9 @@ body {
 }
 
 .download-share:hover {
-    background: linear-gradient(135deg, #c4a484 0%, #a68b5b 100%);
+    background: linear-gradient(135deg, var(--accent) 0%, var(--supporting) 100%);
     color: white;
-    border-color: #c4a484;
+    border-color: var(--accent);
 }
 
 .copy-share:hover {
@@ -767,7 +767,7 @@ body {
 }
 
 #photography .section-title {
-    color: #6b5b4d;
+    color: var(--neutral-dark);
     text-shadow: 0 2px 4px rgba(107, 91, 77, 0.1);
 }
 
@@ -789,14 +789,14 @@ body {
 
 #photography .photo-item i {
     color: #b49d83;
-    background: linear-gradient(45deg, #d4c4b0, #b49d83);
+    background: linear-gradient(45deg, var(--secondary-bg), #b49d83);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
 #photography .social-link {
-    background: linear-gradient(135deg, #c4a484 0%, #a68b5b 100%);
+    background: linear-gradient(135deg, var(--accent) 0%, var(--supporting) 100%);
     box-shadow: 0 4px 20px rgba(166, 139, 91, 0.3);
 }
 
@@ -819,12 +819,12 @@ body {
 }
 
 .pricing-section h3 {
-    color: #6b5b4d;
+    color: var(--neutral-dark);
     text-align: center;
     margin-bottom: 2.5rem;
     font-size: 2rem;
     font-weight: 600;
-    background: linear-gradient(45deg, #6b5b4d, #a69a8a);
+    background: linear-gradient(45deg, var(--neutral-dark), #a69a8a);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -879,7 +879,7 @@ body {
 }
 
 .pricing-item h4 {
-    color: #4a453f;
+    color: var(--neutral-dark);
     font-size: 1.3rem;
     margin-bottom: 1rem;
     font-weight: 600;
@@ -888,9 +888,9 @@ body {
 .price {
     font-size: 2rem;
     font-weight: 700;
-    color: #a68b5b;
+    color: var(--supporting);
     margin-bottom: 1.5rem;
-    background: linear-gradient(45deg, #c4a484, #a68b5b);
+    background: linear-gradient(45deg, var(--accent), var(--supporting));
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -904,7 +904,7 @@ body {
 
 .package-details li {
     padding: 0.5rem 0;
-    color: #6b5b4d;
+    color: var(--neutral-dark);
     position: relative;
     padding-left: 1.5rem;
 }
@@ -913,7 +913,7 @@ body {
     content: '✓';
     position: absolute;
     left: 0;
-    color: #a68b5b;
+    color: var(--supporting);
     font-weight: bold;
 }
 
@@ -935,13 +935,13 @@ body {
 }
 
 .pricing-note p {
-    color: #6b5b4d;
+    color: var(--neutral-dark);
     margin: 0;
     font-size: 0.95rem;
 }
 
 .pricing-note strong {
-    color: #4a453f;
+    color: var(--neutral-dark);
 }
 
 .section-header {
@@ -989,7 +989,7 @@ body {
 }
 
 .social-links h3 {
-    color: #6b5b4d;
+    color: var(--neutral-dark);
     margin-bottom: 1rem;
 }
 
@@ -1079,7 +1079,7 @@ body {
 }
 
 #data .section-title {
-    color: #4a453f;
+    color: var(--neutral-dark);
     text-shadow: 0 2px 4px rgba(74, 69, 63, 0.1);
 }
 
@@ -1133,7 +1133,7 @@ body {
 #data .credential-item h3 {
     font-size: 1.5rem;
     margin-bottom: 1rem;
-    color: #4a453f;
+    color: var(--neutral-dark);
 }
 
 #data .credential-item ul {
@@ -1170,21 +1170,24 @@ body {
 
 /* Music Section */
 #music {
-    background: linear-gradient(135deg, #ede9e3 0%, #d9d2c7 50%, #bfb4a3 100%);
-    color: #3a362f;
+    background: linear-gradient(135deg, var(--primary-bg) 0%, #1a2b3d 50%, var(--neutral-dark) 100%);
+    color: var(--secondary-text);
     position: relative;
 }
 
 #music::before {
     background-image: 
-        radial-gradient(circle at 20% 80%, rgba(191, 180, 163, 0.15) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(217, 210, 199, 0.15) 0%, transparent 50%),
-        radial-gradient(circle at 40% 40%, rgba(191, 180, 163, 0.1) 0%, transparent 50%);
+        radial-gradient(circle at 20% 80%, rgba(74, 143, 163, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 106, 53, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(74, 143, 163, 0.08) 0%, transparent 50%);
 }
 
 #music .section-title {
-    color: #463f36;
-    text-shadow: 0 2px 4px rgba(70, 63, 54, 0.1);
+    background: linear-gradient(45deg, var(--accent), var(--supporting));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: none;
 }
 
 .achievements {
@@ -1197,13 +1200,13 @@ body {
 #music .achievement-item {
     text-align: center;
     padding: 2rem;
-    background: linear-gradient(135deg, #d4c5b0 0%, #bfb4a3 50%, #a69988 100%);
-    color: #f7f5f3;
+    background: linear-gradient(135deg, var(--supporting) 0%, #3a7590 50%, var(--accent) 100%);
+    color: var(--secondary-text);
     border-radius: 12px;
     box-shadow: 
-        0 12px 40px rgba(70, 63, 54, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.2);
-    border: 1px solid rgba(166, 153, 136, 0.3);
+        0 12px 40px rgba(14, 27, 42, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(74, 143, 163, 0.3);
     position: relative;
     overflow: hidden;
 }
@@ -1228,18 +1231,20 @@ body {
 #music .achievement-item:hover {
     transform: translateY(-8px) scale(1.02);
     box-shadow: 
-        0 20px 50px rgba(70, 63, 54, 0.25),
-        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        0 20px 50px rgba(14, 27, 42, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
 #music .achievement-item i {
     font-size: 2.5rem;
     margin-bottom: 1rem;
+    color: var(--secondary-text);
 }
 
 #music .achievement-item h3 {
     font-size: 1.5rem;
     margin-bottom: 0.5rem;
+    color: var(--secondary-text);
 }
 
 .discography {
@@ -1247,7 +1252,7 @@ body {
 }
 
 .discography h3 {
-    color: #463f36;
+    color: var(--secondary-text);
     margin-bottom: 1rem;
 }
 
@@ -1262,7 +1267,7 @@ body {
     padding: 1.5rem;
     background: linear-gradient(145deg, #f5f2ed 0%, #e8e2da 100%);
     border-radius: 8px;
-    border-left: 4px solid #bfb4a3;
+    border-left: 4px solid var(--supporting);
     box-shadow: 
         0 6px 25px rgba(70, 63, 54, 0.12),
         inset 0 1px 0 rgba(255, 255, 255, 0.6);
@@ -1277,7 +1282,7 @@ body {
     left: 0;
     width: 4px;
     height: 100%;
-    background: linear-gradient(180deg, #d4c5b0, #bfb4a3, #a69988);
+    background: linear-gradient(180deg, #d4c5b0, var(--supporting), #a69988);
 }
 
 #music .album:hover {
@@ -1293,7 +1298,7 @@ body {
 }
 
 #music .album p {
-    color: #6b5b4d;
+    color: var(--neutral-dark);
 }
 
 .music-intro {
@@ -1341,7 +1346,7 @@ body {
 }
 
 .music-links h3 {
-    color: #463f36;
+    color: var(--secondary-text);
     margin-bottom: 1rem;
 }
 
@@ -1350,14 +1355,14 @@ body {
     align-items: center;
     gap: 0.5rem;
     padding: 1rem;
-    background: linear-gradient(135deg, #c4a484 0%, #a68b5b 100%);
-    color: #f7f5f3;
+    background: linear-gradient(135deg, var(--supporting) 0%, var(--accent) 100%);
+    color: var(--secondary-text);
     text-decoration: none;
     border-radius: 8px;
     transition: all 0.3s ease;
     justify-content: center;
-    box-shadow: 0 6px 25px rgba(166, 139, 91, 0.3);
-    border: 1px solid rgba(196, 164, 132, 0.4);
+    box-shadow: 0 6px 25px rgba(74, 143, 163, 0.3);
+    border: 1px solid rgba(74, 143, 163, 0.4);
     position: relative;
     overflow: hidden;
 }
@@ -1378,8 +1383,8 @@ body {
 }
 
 #music .music-link:hover {
-    background: linear-gradient(135deg, #b49d83 0%, #9d7c4c 100%);
-    box-shadow: 0 8px 30px rgba(166, 139, 91, 0.4);
+    background: linear-gradient(135deg, var(--accent) 0%, #e55a2b 100%);
+    box-shadow: 0 8px 30px rgba(255, 106, 53, 0.4);
     transform: translateY(-3px);
 }
 
@@ -1401,13 +1406,13 @@ body {
 }
 
 #music .collaborations p {
-    color: #6b5b4d;
+    color: var(--neutral-dark);
 }
 
 /* Contact Section */
 #contact {
-    background: linear-gradient(135deg, #3a362f 0%, #2c2825 50%, #1a1714 100%);
-    color: #f7f5f3;
+    background: linear-gradient(135deg, var(--neutral-dark) 0%, var(--primary-bg) 50%, #0a141f 100%);
+    color: var(--secondary-text);
     position: relative;
 }
 
@@ -1418,7 +1423,7 @@ body {
 }
 
 #contact .section-title {
-    color: #f7f5f3;
+    color: var(--secondary-text);
     text-shadow: 0 2px 4px rgba(26, 23, 20, 0.5);
 }
 
@@ -1452,9 +1457,9 @@ body {
 
 .contact-item i {
     font-size: 1.5rem;
-    color: #c4a484;
+    color: var(--accent);
     width: 30px;
-    background: linear-gradient(45deg, #d4c5b0, #c4a484);
+    background: linear-gradient(45deg, #d4c5b0, var(--accent));
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -1462,7 +1467,7 @@ body {
 
 .contact-item h3 {
     margin-bottom: 0.5rem;
-    color: #ede9e3;
+    color: var(--secondary-bg);
 }
 
 .contact-item p {
@@ -1479,7 +1484,7 @@ body {
 .social-grid a {
     padding: 1rem;
     background: linear-gradient(145deg, rgba(212, 197, 176, 0.15) 0%, rgba(196, 164, 132, 0.15) 100%);
-    color: #ede9e3;
+    color: var(--secondary-bg);
     text-decoration: none;
     border-radius: 8px;
     text-align: center;
@@ -1509,7 +1514,7 @@ body {
 }
 
 .modal-content {
-    background: linear-gradient(145deg, #f7f5f3 0%, #ede9e3 100%);
+    background: linear-gradient(145deg, var(--secondary-text) 0%, var(--secondary-bg) 100%);
     margin: 5% auto;
     padding: 30px;
     border-radius: 20px;
@@ -1549,7 +1554,7 @@ body {
 }
 
 .close:hover {
-    color: #6b5b4d;
+    color: var(--neutral-dark);
     transform: scale(1.1);
 }
 
@@ -1582,7 +1587,7 @@ body {
 
 .pdf-modal .modal-header h3 {
     margin: 0;
-    color: #4a453f;
+    color: var(--neutral-dark);
     font-size: 1.2rem;
 }
 
@@ -1600,10 +1605,10 @@ body {
 }
 
 .modal h2 {
-    color: #4a453f;
+    color: var(--neutral-dark);
     margin-bottom: 10px;
     text-align: center;
-    background: linear-gradient(45deg, #6b5b4d, #a69a8a);
+    background: linear-gradient(45deg, var(--neutral-dark), #a69a8a);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -1612,7 +1617,7 @@ body {
 .modal p {
     text-align: center;
     margin-bottom: 25px;
-    color: #6b5b4d;
+    color: var(--neutral-dark);
 }
 
 .persona-options {
@@ -1623,8 +1628,8 @@ body {
 }
 
 .persona-btn {
-    background: linear-gradient(135deg, #c4a484 0%, #a68b5b 100%);
-    color: #f7f5f3;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--supporting) 100%);
+    color: var(--secondary-text);
     border: none;
     padding: 20px;
     border-radius: 15px;
@@ -1675,10 +1680,10 @@ body {
 }
 
 .ai-response h3 {
-    color: #4a453f;
+    color: var(--neutral-dark);
     margin-bottom: 15px;
     font-size: 1.3rem;
-    background: linear-gradient(45deg, #6b5b4d, #a69a8a);
+    background: linear-gradient(45deg, var(--neutral-dark), #a69a8a);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -1686,7 +1691,7 @@ body {
 
 .ai-response #responseContent {
     line-height: 1.8;
-    color: #4a453f;
+    color: var(--neutral-dark);
     margin-bottom: 20px;
 }
 
@@ -1697,8 +1702,8 @@ body {
 }
 
 .visit-page-btn {
-    background: linear-gradient(135deg, #a68b5b 0%, #9d7c4c 100%);
-    color: #f7f5f3;
+    background: linear-gradient(135deg, var(--supporting) 0%, #9d7c4c 100%);
+    color: var(--secondary-text);
     border: none;
     padding: 12px 20px;
     border-radius: 10px;
@@ -1716,7 +1721,7 @@ body {
 
 .back-btn {
     background: linear-gradient(135deg, #a69a8a 0%, #8b7f70 100%);
-    color: #f7f5f3;
+    color: var(--secondary-text);
     border: none;
     padding: 12px 20px;
     border-radius: 10px;
@@ -1735,7 +1740,7 @@ body {
 .loading {
     text-align: center;
     padding: 30px;
-    color: #6b5b4d;
+    color: var(--neutral-dark);
 }
 
 .spinner {
