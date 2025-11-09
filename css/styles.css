@@ -1168,7 +1168,7 @@ body {
     box-shadow: 0 8px 30px rgba(255, 106, 53, 0.5);
 }
 
-/* Music Section - Rich Nude Theme */
+/* Music Section */
 #music {
     background: linear-gradient(135deg, #ede9e3 0%, #d9d2c7 50%, #bfb4a3 100%);
     color: #3a362f;
@@ -1294,6 +1294,45 @@ body {
 
 #music .album p {
     color: #6b5b4d;
+}
+
+.music-intro {
+    margin-bottom: 3rem;
+    text-align: center;
+}
+
+.music-intro p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+    color: var(--secondary-text);
+    opacity: 0.9;
+}
+
+.cta-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+}
+
+.experience-section {
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.experience-section h3 {
+    color: var(--secondary-text);
+    margin-bottom: 0.5rem;
+    font-size: 1.8rem;
+}
+
+.experience-subtitle {
+    color: var(--supporting);
+    font-size: 1.1rem;
+    font-style: italic;
+    opacity: 0.9;
 }
 
 .music-links {
