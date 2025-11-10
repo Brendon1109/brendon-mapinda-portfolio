@@ -16,6 +16,9 @@ class WebsiteManager {
             });
         }
 
+        // Theme toggle functionality
+        this.initializeThemeToggle();
+
         // Smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -196,6 +199,41 @@ class WebsiteManager {
             } else {
                 usageInfo.style.color = '#27ae60';
             }
+        }
+    }
+
+    initializeThemeToggle() {
+        // Get or set default theme
+        const currentTheme = localStorage.getItem('theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', currentTheme);
+        
+        // Update theme icon
+        const themeIcon = document.getElementById('theme-icon');
+        if (themeIcon) {
+            themeIcon.className = currentTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+        }
+
+        // Theme toggle button event listener
+        const themeToggle = document.getElementById('theme-toggle');
+        if (themeToggle) {
+            themeToggle.addEventListener('click', () => {
+                const currentTheme = document.documentElement.getAttribute('data-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                
+                document.documentElement.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+                
+                // Update icon
+                if (themeIcon) {
+                    themeIcon.className = newTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+                }
+                
+                // Add transition effect
+                document.body.style.transition = 'all 0.3s ease';
+                setTimeout(() => {
+                    document.body.style.transition = '';
+                }, 300);
+            });
         }
     }
 
@@ -489,6 +527,8 @@ function showShareMessage(message) {
 }
 
 // Debug function to test if buttons are working
+
+
 function testQRButtons() {
     console.log('QR sharing functions loaded successfully!');
     showShareMessage('QR sharing functions are working! 🎉');

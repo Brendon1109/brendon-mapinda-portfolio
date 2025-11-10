@@ -19,6 +19,31 @@
     --gradient-primary: linear-gradient(135deg, #FF6A35 0%, #FF8E53 100%);
     --gradient-secondary: linear-gradient(135deg, #4A8FA3 0%, #60A5C2 100%);
     --gradient-accent: linear-gradient(135deg, #0E1B2A 0%, #1B2C3C 100%);
+    
+    /* Theme Variables */
+    --theme-bg: #f8f9fa;
+    --theme-text: #2c3e50;
+    --theme-card-bg: white;
+    --theme-border: rgba(0, 0, 0, 0.1);
+    --theme-shadow: rgba(0, 0, 0, 0.1);
+}
+
+/* Dark theme */
+[data-theme="dark"] {
+    --theme-bg: var(--primary-bg);
+    --theme-text: var(--secondary-text);
+    --theme-card-bg: var(--neutral-dark);
+    --theme-border: rgba(255, 255, 255, 0.1);
+    --theme-shadow: rgba(0, 0, 0, 0.3);
+}
+
+/* Light theme */
+[data-theme="light"] {
+    --theme-bg: #f8f9fa;
+    --theme-text: #2c3e50;
+    --theme-card-bg: white;
+    --theme-border: rgba(0, 0, 0, 0.1);
+    --theme-shadow: rgba(0, 0, 0, 0.1);
 }
 
 body {
@@ -45,6 +70,34 @@ body {
     z-index: 1000;
     transition: all 0.3s ease;
     border-bottom: 1px solid rgba(74, 143, 163, 0.2);
+}
+
+/* Theme Toggle */
+.nav-controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.theme-toggle {
+    background: transparent;
+    border: 2px solid var(--accent);
+    color: var(--accent);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+}
+
+.theme-toggle:hover {
+    background: var(--accent);
+    color: white;
+    transform: scale(1.1);
 }
 
 .nav-container {
@@ -1178,9 +1231,22 @@ body {
 
 /* Music Section */
 #music {
+    background: var(--theme-bg);
+    color: var(--theme-text);
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+/* Dark theme for music section */
+[data-theme="dark"] #music {
     background: linear-gradient(135deg, var(--primary-bg) 0%, #1a2b3d 50%, var(--neutral-dark) 100%);
     color: var(--secondary-text);
-    position: relative;
+}
+
+/* Light theme for music section */
+[data-theme="light"] #music {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 50%, #dee2e6 100%);
+    color: var(--theme-text);
 }
 
 #music::before {
@@ -1419,9 +1485,55 @@ body {
 
 /* Contact Section */
 #contact {
+    background: var(--theme-bg);
+    color: var(--theme-text);
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+/* Dark theme for contact section */
+[data-theme="dark"] #contact {
     background: linear-gradient(135deg, var(--neutral-dark) 0%, var(--primary-bg) 50%, #0a141f 100%);
     color: var(--secondary-text);
-    position: relative;
+}
+
+/* Light theme for contact section */
+[data-theme="light"] #contact {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 50%, #dee2e6 100%);
+    color: var(--theme-text);
+}
+
+/* Adaptive card styles */
+[data-theme="light"] .photo-item,
+[data-theme="light"] .credential-item,
+[data-theme="light"] .pricing-item,
+[data-theme="light"] .achievement-item,
+[data-theme="light"] .album-card {
+    background: var(--theme-card-bg);
+    color: var(--theme-text);
+    border: 1px solid var(--theme-border);
+    box-shadow: 0 4px 15px var(--theme-shadow);
+}
+
+[data-theme="light"] .section-title {
+    color: var(--theme-text);
+}
+
+[data-theme="light"] .section-subtitle {
+    color: rgba(44, 62, 80, 0.8);
+}
+
+/* Responsive theme toggle */
+@media (max-width: 768px) {
+    .nav-controls {
+        gap: 0.5rem;
+    }
+    
+    .theme-toggle {
+        width: 35px;
+        height: 35px;
+        font-size: 0.9rem;
+    }
 }
 
 #contact::before {
