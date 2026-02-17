@@ -21,7 +21,7 @@
     <meta property="og:url" content="https://brendon1109.github.io/brendon-mapinda-portfolio/">
     <meta property="og:title" content="Brendon Mapinda | Cinematographer | Web & App Developer">
     <meta property="og:description" content="Cape Town-based cinematographer, photographer, web designer and app developer.">
-    <meta property="og:image" content="https://brendon1109.github.io/brendon-mapinda-portfolio/profile%20picture/artistic-profile.png.png">
+    <meta property="og:image" content="https://brendon1109.github.io/brendon-mapinda-portfolio/images/artistic-profile.png">
     <meta property="og:locale" content="en_ZA">
     <meta property="og:site_name" content="Brendon Mapinda Portfolio">
 
@@ -30,10 +30,13 @@
     <meta property="twitter:url" content="https://brendon1109.github.io/brendon-mapinda-portfolio/">
     <meta property="twitter:title" content="Brendon Mapinda | Cinematographer | Web & App Developer">
     <meta property="twitter:description" content="Cape Town-based cinematographer, photographer, web designer and app developer.">
-    <meta property="twitter:image" content="https://brendon1109.github.io/brendon-mapinda-portfolio/profile%20picture/artistic-profile.png.png">
+    <meta property="twitter:image" content="https://brendon1109.github.io/brendon-mapinda-portfolio/images/artistic-profile.png">
 
     <!-- Canonical URL -->
     <link rel="canonical" href="https://brendon1109.github.io/brendon-mapinda-portfolio/">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
 
     <!-- Structured Data for Google -->
     <script type="application/ld+json">
@@ -44,7 +47,7 @@
         "jobTitle": ["Cinematographer", "Photographer", "Web Developer", "App Developer"],
         "description": "Professional cinematographer, photographer, web designer and app developer based in Cape Town, South Africa",
         "url": "https://brendon1109.github.io/brendon-mapinda-portfolio/",
-        "image": "https://brendon1109.github.io/brendon-mapinda-portfolio/profile%20picture/artistic-profile.png.png",
+        "image": "https://brendon1109.github.io/brendon-mapinda-portfolio/images/artistic-profile.png",
         "address": {
             "@type": "PostalAddress",
             "addressLocality": "Cape Town",
@@ -67,15 +70,18 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
+    <!-- Skip to content link for accessibility -->
+    <a href="#home" class="skip-to-content">Skip to content</a>
+
     <!-- Navigation -->
-    <nav class="navbar">
+    <nav class="navbar" role="navigation" aria-label="Main navigation">
         <div class="nav-container">
             <div class="nav-logo">
                 <a href="#home">Brendon Mapinda</a>
             </div>
-            <ul class="nav-menu">
+            <ul class="nav-menu" id="nav-menu">
                 <li class="nav-item">
-                    <a href="#home" class="nav-link">Home</a>
+                    <a href="#home" class="nav-link active">Home</a>
                 </li>
                 <li class="nav-item">
                     <a href="#photography" class="nav-link">Photography</a>
@@ -87,11 +93,11 @@
                     <a href="#contact" class="nav-link">Contact</a>
                 </li>
             </ul>
-            <div class="hamburger">
+            <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="nav-menu">
                 <span class="bar"></span>
                 <span class="bar"></span>
                 <span class="bar"></span>
-            </div>
+            </button>
         </div>
     </nav>
 
@@ -106,12 +112,12 @@
                 </p>
                 <div class="service-selector">
                     <a href="#photography" class="service-card">
-                        <i class="fas fa-camera"></i>
+                        <i class="fas fa-camera" aria-hidden="true"></i>
                         <h3>Photography & Video</h3>
                         <p>Shoots, events, reels & content creation</p>
                     </a>
                     <a href="#data" class="service-card">
-                        <i class="fas fa-code"></i>
+                        <i class="fas fa-code" aria-hidden="true"></i>
                         <h3>Web & App Dev</h3>
                         <p>Websites, apps & AI integration</p>
                     </a>
@@ -119,8 +125,8 @@
             </div>
             <div class="hero-image">
                 <div class="image-placeholder">
-                    <img src="profile picture/artistic-profile.png.png" alt="Brendon Mapinda - Professional Cinematographer and Web Developer from Cape Town" class="profile-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                    <i class="fas fa-camera" style="display:none;"></i>
+                    <img src="images/artistic-profile.png" alt="Brendon Mapinda - Professional Cinematographer and Web Developer from Cape Town" class="profile-img" loading="eager" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <i class="fas fa-camera" style="display:none;" aria-hidden="true"></i>
                 </div>
             </div>
         </div>
@@ -139,7 +145,7 @@
                     <h3>Photography & Cinematography Pricing</h3>
                     <div class="pricing-grid">
                         <div class="pricing-item">
-                            <i class="fas fa-user"></i>
+                            <i class="fas fa-user" aria-hidden="true"></i>
                             <h4>Individual Shoot</h4>
                             <div class="price">R300 - R500</div>
                             <div class="package-details">
@@ -155,8 +161,8 @@
                             </div>
                         </div>
 
-                        <div class="pricing-item">
-                            <i class="fas fa-users"></i>
+                        <div class="pricing-item featured">
+                            <i class="fas fa-users" aria-hidden="true"></i>
                             <h4>Small Group Shoot</h4>
                             <div class="price">R500 - R1,000</div>
                             <div class="package-details">
@@ -173,7 +179,7 @@
                         </div>
 
                         <div class="pricing-item">
-                            <i class="fas fa-calendar-alt"></i>
+                            <i class="fas fa-calendar-alt" aria-hidden="true"></i>
                             <h4>Event Coverage</h4>
                             <div class="price">R1,000 - R1,500</div>
                             <div class="package-details">
@@ -196,14 +202,14 @@
 
                 <div class="photo-grid">
                     <div class="photo-item">
-                        <i class="fas fa-camera-retro"></i>
+                        <i class="fas fa-camera-retro" aria-hidden="true"></i>
                         <h3>framebyframeios Founder</h3>
-                        <p>Udemy Certified iPhone photographer - Creating compelling visual narratives and cinematic content for brands and individuals - <a href="https://www.instagram.com/framebyframeios" target="_blank" style="color: var(--accent); text-decoration: underline;">Visit Instagram</a></p>
+                        <p>Udemy Certified iPhone photographer - Creating compelling visual narratives and cinematic content for brands and individuals - <a href="https://www.instagram.com/framebyframeios" target="_blank" rel="noopener noreferrer">Visit Instagram</a></p>
                     </div>
                     <div class="photo-item">
-                        <i class="fas fa-users"></i>
+                        <i class="fas fa-users" aria-hidden="true"></i>
                         <h3>Tsakani Sessions Co-Founder</h3>
-                        <p>Event marketing specialists generating exceptional revenue results: 816% increase for The Waiting Room Rooftop Lounge Halloween event, 125% boost for Shwarma & Pizza Cafe. We provide 4 male DJs, 1 female DJ, and comprehensive social media content creation - <a href="https://www.instagram.com/tsakani_sessions" target="_blank" style="color: var(--accent); text-decoration: underline;">Visit Instagram</a></p>
+                        <p>Event marketing specialists generating exceptional revenue results: 816% increase for The Waiting Room Rooftop Lounge Halloween event, 125% boost for Shwarma & Pizza Cafe. We provide 4 male DJs, 1 female DJ, and comprehensive social media content creation - <a href="https://www.instagram.com/tsakani_sessions" target="_blank" rel="noopener noreferrer">Visit Instagram</a></p>
                     </div>
                 </div>
 
@@ -211,7 +217,7 @@
         </div>
     </section>
 
-    <!-- AI & Digital Media Transformation Section -->
+    <!-- Web & App Development Section -->
     <section id="data" class="section bg-light">
         <div class="container">
             <div class="section-header">
@@ -221,7 +227,7 @@
             <div class="data-content">
                 <div class="services-grid">
                     <div class="service-item">
-                        <i class="fas fa-globe"></i>
+                        <i class="fas fa-globe" aria-hidden="true"></i>
                         <h3>Web Development & Design</h3>
                         <div class="service-price">R2,000 - R5,000</div>
                         <div class="service-description">
@@ -230,7 +236,7 @@
                     </div>
 
                     <div class="service-item">
-                        <i class="fas fa-robot"></i>
+                        <i class="fas fa-robot" aria-hidden="true"></i>
                         <h3>AI Integration & Prompt Engineering</h3>
                         <div class="service-price">R1,500 - R3,500</div>
                         <div class="service-description">
@@ -239,7 +245,7 @@
                     </div>
 
                     <div class="service-item">
-                        <i class="fas fa-mobile-alt"></i>
+                        <i class="fas fa-mobile-alt" aria-hidden="true"></i>
                         <h3>App Development</h3>
                         <div class="service-price">R5,000 - R10,000</div>
                         <div class="service-description">
@@ -268,8 +274,8 @@
                     <p><em>*Pricing varies by model choice and usage volume</em></p>
                 </div>
                 <div class="professional-link">
-                    <a href="https://www.linkedin.com/in/brendon-mapinda-20b6911a0/" target="_blank" class="btn btn-professional">
-                        <i class="fab fa-linkedin"></i>
+                    <a href="https://www.linkedin.com/in/brendon-mapinda-20b6911a0/" target="_blank" rel="noopener noreferrer" class="btn btn-professional">
+                        <i class="fab fa-linkedin" aria-hidden="true"></i>
                         View LinkedIn Profile
                     </a>
                 </div>
@@ -287,39 +293,45 @@
             <div class="contact-content">
                 <div class="contact-info">
                     <div class="contact-item">
-                        <i class="fas fa-envelope"></i>
-                        <h3>Email</h3>
-                        <p><a href="mailto:mapindabrendon@gmail.com">mapindabrendon@gmail.com</a></p>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-phone"></i>
-                        <h3>Phone</h3>
-                        <div class="phone-options">
-                            <a href="tel:+27748226711" class="phone-link">
-                                <i class="fas fa-phone"></i> Call
-                            </a>
-                            <a href="https://wa.me/27748226711" target="_blank" class="whatsapp-link">
-                                <i class="fab fa-whatsapp"></i> WhatsApp
-                            </a>
+                        <i class="fas fa-envelope" aria-hidden="true"></i>
+                        <div>
+                            <h3>Email</h3>
+                            <p><a href="mailto:mapindabrendon@gmail.com">mapindabrendon@gmail.com</a></p>
                         </div>
-                        <p class="phone-number">+27 74 822 6711</p>
                     </div>
                     <div class="contact-item">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <h3>Based in</h3>
-                        <p>Cape Town, South Africa</p>
+                        <i class="fas fa-phone" aria-hidden="true"></i>
+                        <div>
+                            <h3>Phone</h3>
+                            <div class="phone-options">
+                                <a href="tel:+27748226711" class="phone-link">
+                                    <i class="fas fa-phone" aria-hidden="true"></i> Call
+                                </a>
+                                <a href="https://wa.me/27748226711" target="_blank" rel="noopener noreferrer" class="whatsapp-link">
+                                    <i class="fab fa-whatsapp" aria-hidden="true"></i> WhatsApp
+                                </a>
+                            </div>
+                            <p class="phone-number">+27 74 822 6711</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+                        <div>
+                            <h3>Based in</h3>
+                            <p>Cape Town, South Africa</p>
+                        </div>
                     </div>
                 </div>
 
                 <div class="all-links">
                     <h3>Find Me Online</h3>
                     <div class="social-grid">
-                        <a href="https://www.instagram.com/brandon_breazy" target="_blank"><i class="fab fa-instagram"></i> Personal</a>
-                        <a href="https://www.instagram.com/framebyframeios" target="_blank"><i class="fab fa-instagram"></i> Photography</a>
-                        <a href="https://www.tiktok.com/@framebyframeios" target="_blank"><i class="fab fa-tiktok"></i> TikTok</a>
-                        <a href="https://www.linkedin.com/in/brendon-mapinda-20b6911a0/" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
-                        <a href="https://www.instagram.com/tsakani_sessions" target="_blank"><i class="fab fa-instagram"></i> Tsakani Sessions</a>
-                        <a href="https://www.youtube.com/@TsakaniSessions" target="_blank"><i class="fab fa-youtube"></i> YouTube</a>
+                        <a href="https://www.instagram.com/brandon_breazy" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram" aria-hidden="true"></i> Personal</a>
+                        <a href="https://www.instagram.com/framebyframeios" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram" aria-hidden="true"></i> Photography</a>
+                        <a href="https://www.tiktok.com/@framebyframeios" target="_blank" rel="noopener noreferrer"><i class="fab fa-tiktok" aria-hidden="true"></i> TikTok</a>
+                        <a href="https://www.linkedin.com/in/brendon-mapinda-20b6911a0/" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin" aria-hidden="true"></i> LinkedIn</a>
+                        <a href="https://www.instagram.com/tsakani_sessions" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram" aria-hidden="true"></i> Tsakani Sessions</a>
+                        <a href="https://www.youtube.com/@TsakaniSessions" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube" aria-hidden="true"></i> YouTube</a>
                     </div>
                 </div>
             </div>
