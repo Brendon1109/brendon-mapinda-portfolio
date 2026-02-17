@@ -10,7 +10,7 @@ Allow: /qr-code-generator.html
 Allow: /css/
 Allow: /js/
 Allow: /assets/
-Allow: /profile picture/
+Allow: /images/
 
 # Block any test or private files
 Disallow: /deploy.bat
