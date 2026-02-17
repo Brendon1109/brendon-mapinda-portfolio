@@ -3,176 +3,244 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QR Code Generator for Brendon's Portfolio</title>
-    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+    <title>QR Code Generator - Brendon Mapinda Portfolio</title>
     <style>
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Inter', Arial, sans-serif;
             margin: 0;
-            padding: 40px;
-            background: linear-gradient(135deg, #f7f5f3 0%, #ebe5df 100%);
+            padding: 40px 20px;
+            background: linear-gradient(135deg, #0E1B2A 0%, #1B2C3C 100%);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
         }
-        
+
         .container {
             background: white;
             padding: 40px;
             border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
             text-align: center;
             max-width: 500px;
+            width: 100%;
         }
-        
+
         h1 {
-            color: #4a453f;
-            margin-bottom: 20px;
-            background: linear-gradient(45deg, #6b5b4d, #a69a8a);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: #1B2C3C;
+            margin-bottom: 10px;
+            font-size: 1.5rem;
         }
-        
+
         .url {
-            color: #6b5b4d;
+            color: #4A8FA3;
             margin-bottom: 30px;
             word-break: break-all;
-            font-size: 14px;
+            font-size: 13px;
+            background: #f0f7fa;
+            padding: 10px 15px;
+            border-radius: 8px;
         }
-        
+
         #qrcode {
-            margin: 30px 0;
+            margin: 30px auto;
             display: flex;
             justify-content: center;
+            align-items: center;
+            min-height: 300px;
         }
-        
+
+        #qrcode canvas {
+            border-radius: 8px;
+        }
+
+        #qrcode img {
+            border-radius: 8px;
+        }
+
         .instructions {
-            color: #6b5b4d;
+            color: #555;
             font-size: 14px;
             margin-top: 20px;
-            line-height: 1.6;
+            line-height: 1.8;
+            text-align: left;
         }
-        
+
         .download-btn {
-            background: linear-gradient(135deg, #c4a484 0%, #a68b5b 100%);
+            background: linear-gradient(135deg, #FF6A35 0%, #4A8FA3 100%);
             color: white;
             border: none;
-            padding: 12px 24px;
-            border-radius: 8px;
+            padding: 14px 28px;
+            border-radius: 10px;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 15px;
+            font-weight: 600;
             margin-top: 20px;
-            transition: transform 0.2s ease;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
-        
+
         .download-btn:hover {
             transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 106, 53, 0.3);
+        }
+
+        .status {
+            margin-top: 15px;
+            font-size: 13px;
+            color: #888;
+        }
+
+        .status.success { color: #10B981; }
+        .status.error { color: #e74c3c; }
+
+        .back-link {
+            margin-top: 20px;
+            display: inline-block;
+            color: #4A8FA3;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .tips {
+            background: #f0f7fa;
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            text-align: left;
+            font-size: 13px;
+            color: #555;
+            line-height: 1.8;
+        }
+
+        .tips strong {
+            color: #1B2C3C;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>QR Code for Brendon's Portfolio</h1>
+        <h1>QR Code Generator</h1>
         <div class="url">https://brendon1109.github.io/brendon-mapinda-portfolio/</div>
+
         <div id="qrcode"></div>
-        <div class="instructions">
-            <strong>How to use:</strong><br>
-            • Right-click on the QR code and select "Save image as..." to download<br>
-            • Use this QR code on business cards, presentations, or marketing materials<br>
-            • Anyone can scan it with their phone camera to visit your portfolio
+        <div id="status" class="status">Generating QR code...</div>
+
+        <button class="download-btn" id="downloadBtn" onclick="downloadQR()" style="display:none;">
+            Download QR Code (PNG)
+        </button>
+
+        <div class="tips">
+            <strong>Scanning tips:</strong><br>
+            - iPhone: Open Camera app, point at QR code, tap the link<br>
+            - Android: Open Camera app or Google Lens, point at QR code<br>
+            - Hold phone 6-12 inches from the code, keep steady
         </div>
-        <button class="download-btn" onclick="downloadQR()">Download QR Code</button>
+
+        <a href="index.html" class="back-link">&larr; Back to Portfolio</a>
     </div>
 
     <script>
-        // Wait for the page to fully load before generating QR code
-        window.addEventListener('load', function() {
-            // Generate QR Code with better settings for scanning
-            const websiteUrl = 'https://brendon1109.github.io/brendon-mapinda-portfolio/';
-            
-            console.log('Starting QR code generation...');
-            
-            QRCode.toCanvas(document.getElementById('qrcode'), websiteUrl, {
-                width: 400,
-                height: 400,
-                color: {
-                    dark: '#000000',  // Pure black for better contrast
-                    light: '#ffffff'  // Pure white background
-                },
-            margin: 4,  // Larger margin for better scanning
-            errorCorrectionLevel: 'H',  // High error correction
-            type: 'image/png',
-            quality: 1.0,
-            scale: 8  // Higher scale for better quality
-        }, function (error) {
-            if (error) {
-                console.error(error);
-                // Fallback: create a simple text link
-                document.getElementById('qrcode').innerHTML = `
-                    <p style="color: #c4a484; font-weight: bold;">
-                        QR Code generation failed. 
-                        <a href="${websiteUrl}" target="_blank" style="color: #a68b5b;">
-                            Click here to visit the portfolio
-                        </a>
-                    </p>
-                `;
-            } else {
-                console.log('High-quality QR Code generated successfully!');
-                // Auto-download the better QR code
-                setTimeout(() => {
-                    const canvas = document.querySelector('#qrcode canvas');
-                    if (canvas) {
-                        const link = document.createElement('a');
-                        link.download = 'brendon-portfolio-qr-code-hq.png';
-                        link.href = canvas.toDataURL('image/png', 1.0);
-                        document.body.appendChild(link);
-                        link.click();
-                        document.body.removeChild(link);
-                        console.log('High-quality QR code downloaded');
+        const websiteUrl = 'https://brendon1109.github.io/brendon-mapinda-portfolio/';
+        const statusEl = document.getElementById('status');
+        const downloadBtn = document.getElementById('downloadBtn');
+
+        // Try method 1: Use qrcode.js library via CDN
+        function generateWithLibrary() {
+            const script = document.createElement('script');
+            script.src = 'https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js';
+            script.onload = function() {
+                const container = document.getElementById('qrcode');
+                container.innerHTML = '';
+
+                QRCode.toCanvas(websiteUrl, {
+                    width: 350,
+                    margin: 3,
+                    errorCorrectionLevel: 'H',
+                    color: { dark: '#000000', light: '#ffffff' }
+                }, function(error, canvas) {
+                    if (error) {
+                        console.error('Library method failed:', error);
+                        generateWithAPI();
+                        return;
                     }
-                }, 1000);
-            }
-        });
-        
-        // Enhanced download QR Code function
+                    container.appendChild(canvas);
+                    statusEl.textContent = 'QR code ready! Works on iOS and Android.';
+                    statusEl.className = 'status success';
+                    downloadBtn.style.display = 'inline-block';
+                });
+            };
+            script.onerror = function() {
+                console.error('CDN failed, trying API method');
+                generateWithAPI();
+            };
+            document.head.appendChild(script);
+        }
+
+        // Try method 2: Use external QR API as fallback
+        function generateWithAPI() {
+            const container = document.getElementById('qrcode');
+            container.innerHTML = '';
+
+            const img = document.createElement('img');
+            img.src = 'https://api.qrserver.com/v1/create-qr-code/?size=350x350&format=png&ecc=H&margin=10&color=000000&bgcolor=ffffff&data=' + encodeURIComponent(websiteUrl);
+            img.alt = 'QR Code - Brendon Mapinda Portfolio';
+            img.style.width = '350px';
+            img.style.height = '350px';
+
+            img.onload = function() {
+                statusEl.textContent = 'QR code ready! Works on iOS and Android.';
+                statusEl.className = 'status success';
+                downloadBtn.style.display = 'inline-block';
+            };
+
+            img.onerror = function() {
+                statusEl.textContent = 'Failed to generate QR code. Please try refreshing the page.';
+                statusEl.className = 'status error';
+            };
+
+            container.appendChild(img);
+        }
+
         function downloadQR() {
+            // Try canvas first (from library method)
             const canvas = document.querySelector('#qrcode canvas');
             if (canvas) {
-                // Create a higher quality version
-                const tempCanvas = document.createElement('canvas');
-                const tempCtx = tempCanvas.getContext('2d');
-                
-                // Make it even larger for printing
-                const scale = 2;
-                tempCanvas.width = canvas.width * scale;
-                tempCanvas.height = canvas.height * scale;
-                
-                // Use better image smoothing
-                tempCtx.imageSmoothingEnabled = false;
-                
-                // Draw white background first
-                tempCtx.fillStyle = '#ffffff';
-                tempCtx.fillRect(0, 0, tempCanvas.width, tempCanvas.height);
-                
-                // Draw the QR code on top with scaling
-                tempCtx.drawImage(canvas, 0, 0, tempCanvas.width, tempCanvas.height);
-                
-                // Download the high-quality image
                 const link = document.createElement('a');
-                link.download = 'brendon-portfolio-qr-code-hq.png';
+                link.download = 'brendon-mapinda-qr-code.png';
+                link.href = canvas.toDataURL('image/png', 1.0);
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                return;
+            }
+
+            // Fallback: download the img
+            const img = document.querySelector('#qrcode img');
+            if (img) {
+                const tempCanvas = document.createElement('canvas');
+                const ctx = tempCanvas.getContext('2d');
+                tempCanvas.width = 400;
+                tempCanvas.height = 400;
+                ctx.fillStyle = '#ffffff';
+                ctx.fillRect(0, 0, 400, 400);
+                ctx.drawImage(img, 0, 0, 400, 400);
+
+                const link = document.createElement('a');
+                link.download = 'brendon-mapinda-qr-code.png';
                 link.href = tempCanvas.toDataURL('image/png', 1.0);
                 document.body.appendChild(link);
                 link.click();
                 document.body.removeChild(link);
-                
-                alert('High-quality QR code downloaded! This version should scan much better.');
-            } else {
-                alert('QR Code not ready yet. Please wait a moment and try again.');
             }
         }
+
+        // Start generation
+        generateWithLibrary();
     </script>
 </body>
 </html>
