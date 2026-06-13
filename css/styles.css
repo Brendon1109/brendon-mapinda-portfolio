@@ -999,7 +999,7 @@ h1 em, h2 em, h3 em {
 .split-studio:hover::before { transform: scale(1.05); }
 .split-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(17,17,17,0.15), rgba(17,17,17,0.82)); }
 .split-systems { background: #0c0c0d; }
-.split-systems::before { content: ''; position: absolute; inset: 0; background: url('../images/systems-bg.jpg') center/cover no-repeat; transition: transform 0.8s var(--ease); }
+.split-systems::before { content: ''; position: absolute; inset: 0; background: url('../images/systems-desk.jpg') center/cover no-repeat; transition: transform 0.8s var(--ease); }
 .split-systems:hover::before { transform: scale(1.05); }
 .split-content { position: relative; z-index: 2; color: var(--paper); max-width: 360px; }
 .split-tag { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); }
