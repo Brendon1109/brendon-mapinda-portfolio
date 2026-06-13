@@ -238,6 +238,15 @@ h1 em, h2 em, h3 em {
     flex-wrap: wrap;
     margin-bottom: 2.5rem;
 }
+.hero-cred {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+    color: var(--slate);
+    margin-top: -0.6rem;
+    max-width: 480px;
+    line-height: 1.85;
+}
 
 /* Pillar switch (hero) */
 .pillar-switch {
