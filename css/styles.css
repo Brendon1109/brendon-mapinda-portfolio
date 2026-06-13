@@ -998,7 +998,9 @@ h1 em, h2 em, h3 em {
 .split-studio::before { content: ''; position: absolute; inset: 0; background: url('../images/gallery-1.jpg') center 20%/cover no-repeat; transition: transform 0.8s var(--ease); }
 .split-studio:hover::before { transform: scale(1.05); }
 .split-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(17,17,17,0.15), rgba(17,17,17,0.82)); }
-.split-systems { background: radial-gradient(120% 100% at 72% 8%, #1c1c1f, #0c0c0d 72%); }
+.split-systems { background: #0c0c0d; }
+.split-systems::before { content: ''; position: absolute; inset: 0; background: url('../images/systems-bg.jpg') center/cover no-repeat; transition: transform 0.8s var(--ease); }
+.split-systems:hover::before { transform: scale(1.05); }
 .split-content { position: relative; z-index: 2; color: var(--paper); max-width: 360px; }
 .split-tag { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); }
 .split-content h2 { color: var(--paper); font-size: clamp(2rem, 4vw, 3rem); margin: 0.5rem 0 0.75rem; line-height: 1.05; }
