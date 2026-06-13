@@ -995,7 +995,8 @@ h1 em, h2 em, h3 em {
    ============================================================ */
 .landing-body { background: var(--ink); }
 .landing { min-height: 100vh; min-height: 100svh; display: flex; flex-direction: column; }
-.landing-head { display: flex; flex-direction: column; align-items: center; gap: 0.4rem; padding: 2rem 1.5rem 0.25rem; text-align: center; }
+.landing-head { display: flex; flex-direction: column; align-items: center; gap: 0.4rem; padding: 1.5rem 1.5rem 0.25rem; text-align: center; }
+.landing-logo-svg { width: 330px; max-width: 80%; height: auto; color: var(--paper); display: block; }
 .landing-logo { font-family: var(--font-display); font-size: 1.4rem; color: var(--paper); letter-spacing: -0.01em; }
 .landing-tagline { font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); }
 .landing-question { text-align: center; color: var(--paper); font-weight: 400; font-size: clamp(1.4rem, 3vw, 2.1rem); padding: 1.1rem 1.5rem 0.6rem; opacity: 0.92; }
