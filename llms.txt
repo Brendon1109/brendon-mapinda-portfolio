@@ -1,30 +1,41 @@
 # Brendon Mapinda — Creative Studio + Automation Lab
 
-> Cape Town–based creative studio and automation lab run by Brendon Mapinda. Two disciplines under one operator: premium cinematic photography & video (the Studio), and AI automation, software development & business optimization (the Systems / Lab). Brand promise: premium visuals, smart systems, business growth — helping brands look premium and run smarter.
+> Cape Town–based creative studio and automation lab run by Brendon Mapinda. Two paths, chosen from the landing page: premium photography & content (the Studio), and software & automation (Systems). Brand promise: premium visuals, smart systems, business growth — helping brands look premium and run smarter.
 
-## What Brendon does
+## Site structure
 
-- **The Studio (visuals):** editorial portraits, brand & venue content (lounges, bars, products, personalities), cinematic short-form reels for Instagram/TikTok, and event coverage (graduations, baby showers, brand activations). Photographer/cinematographer since 2017, with eight years refining a single editorial aesthetic — Lightroom-finished, premium, moody and lifestyle-led.
-- **The Systems / Lab (AI & software):** AI automation and AI agents, custom web app and software builds, business-process optimization, and AI discoverability (structuring products and content to be found and recommended inside ChatGPT, Gemini, Perplexity and AI search). Background as an AI-augmented data & migration engineer; 5+ applications built and deployed.
-- **The Growth Partnership:** a monthly retainer combining cinematic content with the systems that capture and convert it — the flagship bundle.
+- **Landing** (`/`): a chooser — Photography & Content, or Software & Automation.
+- **Studio** (`/studio.html`): photography & video.
+- **Systems** (`/systems.html`): AI automation, software & business optimization.
 
-## Pricing (South African Rand, indicative)
+## The Studio (photography & content)
 
-- Studio sessions: Mini R850 · Signature R1,350 (most booked, includes a cinematic reel) · Premium Creative R2,000–R2,500.
-- Event coverage: from R1,800 (Basic) to by-quote (Full).
-- Systems: Automation Sprint from R7,500 · Custom Build from R25,000 · Systems Retainer from R4,500/month.
-- All Systems figures are starting points; every build is scoped to the problem.
+Editorial portraits, brand & venue content (lounges, bars, products, personalities), cinematic short-form reels for Instagram/TikTok, and event coverage (graduations, baby showers, brand activations). Photographer/cinematographer since 2017, with eight years refining a single editorial aesthetic — Lightroom-finished, premium, moody and lifestyle-led.
+
+Session pricing (South African Rand): Mini R500 · Signature R850 (most booked, includes a cinematic reel) · Premium Creative R1,000. Event coverage: Basic R1,500 · Half-Day R2,000 · Full Event R2,500. All sessions include creative direction, Lightroom retouching and a private gallery.
+
+## Systems (software & automation)
+
+AI automation and AI agents, custom web app and software builds, business-process optimization, and AI discoverability (structuring products and content to be found and recommended inside ChatGPT, Gemini, Perplexity and AI search). Background as an AI-augmented data & migration engineer; 5+ applications built and deployed.
+
+Pricing (South African Rand, indicative starting points): Automation from R2,500 · Custom Build from R3,000. Every build is scoped to the problem.
+
+## The Growth Partnership
+
+A monthly retainer combining cinematic content with the systems that capture and convert it — the flagship bundle, from R5,000/month.
 
 ## How to engage
 
-- Project enquiry form on the website (Studio or Systems).
+- Project enquiry forms on the Studio and Systems pages.
 - WhatsApp: +27 74 822 6711
 - Email: mapindabrendon@gmail.com
 - Based in Cape Town, South Africa. Creative shoots city-wide; AI/software work delivered across South Africa and remotely worldwide.
 
 ## Links
 
-- [Website](https://brendon1109.github.io/brendon-mapinda-portfolio/)
+- [Website](https://brendon-mapinda-portfolio.vercel.app/)
+- [Photography & Content](https://brendon-mapinda-portfolio.vercel.app/studio.html)
+- [Software & Automation](https://brendon-mapinda-portfolio.vercel.app/systems.html)
 - [Instagram — visuals (framebyframeios)](https://www.instagram.com/framebyframeios)
 - [TikTok](https://www.tiktok.com/@framebyframeios)
 - [LinkedIn](https://www.linkedin.com/in/brendon-mapinda-20b6911a0/)

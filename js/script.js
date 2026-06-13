@@ -24,7 +24,33 @@ class Site {
         this.activeNavOnScroll();
         this.revealOnScroll();
         this.initForm();
+        this.initGallery();
         this.setYear();
+    }
+
+    initGallery() {
+        const gallery = document.getElementById('gallery');
+        const lb = document.getElementById('lightbox');
+        if (!gallery || !lb) return;
+        const lbImg = document.getElementById('lightbox-img');
+        const closeBtn = document.getElementById('lightbox-close');
+        const open = (src, alt) => {
+            lbImg.src = src; lbImg.alt = alt || '';
+            lb.classList.add('open'); lb.setAttribute('aria-hidden', 'false');
+            document.body.style.overflow = 'hidden';
+        };
+        const close = () => {
+            lb.classList.remove('open'); lb.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = ''; lbImg.src = '';
+        };
+        gallery.addEventListener('click', (e) => {
+            const img = e.target.closest('.gallery-item img');
+            if (!img) return;
+            open(img.currentSrc || img.src, img.alt);
+        });
+        closeBtn.addEventListener('click', close);
+        lb.addEventListener('click', (e) => { if (e.target === lb) close(); });
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && lb.classList.contains('open')) close(); });
     }
 
     bindEvents() {

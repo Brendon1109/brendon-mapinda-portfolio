@@ -36,4 +36,4 @@ Disallow: /DEPLOYMENT.md
 Disallow: /README.md
 
 # Sitemap
-Sitemap: https://brendon1109.github.io/brendon-mapinda-portfolio/sitemap.xml
+Sitemap: https://brendon-mapinda-portfolio.vercel.app/sitemap.xml
