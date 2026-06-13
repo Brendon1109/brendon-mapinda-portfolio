@@ -25,7 +25,23 @@ class Site {
         this.revealOnScroll();
         this.initForm();
         this.initGallery();
+        this.initHeroSlideshow();
         this.setYear();
+    }
+
+    initHeroSlideshow() {
+        const box = document.getElementById('hero-slideshow');
+        if (!box) return;
+        const slides = Array.from(box.querySelectorAll('.hero-slide'));
+        if (slides.length < 2) return;
+        // Respect reduced-motion: keep the first frame static.
+        if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        let i = 0;
+        setInterval(() => {
+            slides[i].classList.remove('is-active');
+            i = (i + 1) % slides.length;
+            slides[i].classList.add('is-active');
+        }, 5000);
     }
 
     initGallery() {

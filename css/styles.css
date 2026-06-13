@@ -311,6 +311,13 @@ h1 em, h2 em, h3 em {
     transition: transform 0.8s var(--ease);
 }
 .portrait-frame:hover .portrait-img { transform: scale(1.03); }
+
+/* Hero slideshow (auto crossfade + slow Ken Burns zoom) */
+.hero-slideshow .hero-slide { position: absolute; inset: 0; opacity: 0; transition: opacity 1.2s var(--ease); z-index: 0; }
+.hero-slideshow .hero-slide img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
+.hero-slideshow .hero-slide.is-active { opacity: 1; }
+.hero-slideshow .hero-slide.is-active img { animation: kenburns 6.2s var(--ease) forwards; }
+@keyframes kenburns { from { transform: scale(1.001); } to { transform: scale(1.09); } }
 .portrait-frame figcaption {
     position: absolute;
     bottom: 1.25rem;
