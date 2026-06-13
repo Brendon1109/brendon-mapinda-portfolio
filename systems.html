@@ -98,16 +98,18 @@
                 <p class="hero-note">For cafés, salons, gyms, barbers and service businesses still run on WhatsApp and spreadsheets.</p>
             </div>
             <div class="hero-image">
-                <div class="terminal" aria-hidden="true">
-                    <div class="terminal-bar"><span></span><span></span><span></span></div>
-                    <pre class="terminal-body"><span class="t-c">// lead → CRM → follow-up</span>
-<span class="t-k">const</span> lead = <span class="t-f">await</span> capture(form);
-<span class="t-f">await</span> crm.add(lead);
-<span class="t-f">await</span> ai.reply(lead);   <span class="t-c">// in 30s</span>
-
-<span class="t-c">// ship it</span>
-$ vercel deploy --prod
-<span class="t-ok">✓ live in 1m 12s</span></pre>
+                <div class="demo-card" aria-hidden="true">
+                    <div class="demo-head"><i class="fa-regular fa-bell" aria-hidden="true"></i> New booking</div>
+                    <div class="demo-body">
+                        <p class="demo-name">Sarah M.</p>
+                        <p class="demo-meta">Saturday, 2:00 PM &middot; cut and style</p>
+                    </div>
+                    <ul class="demo-status">
+                        <li><i class="fa-solid fa-check" aria-hidden="true"></i> Confirmed automatically</li>
+                        <li><i class="fa-solid fa-check" aria-hidden="true"></i> Added to your calendar</li>
+                        <li><i class="fa-solid fa-check" aria-hidden="true"></i> Reminder sent to Sarah</li>
+                    </ul>
+                    <div class="demo-foot">Handled while you were with a client.</div>
                 </div>
             </div>
         </div>
@@ -192,11 +194,11 @@ $ vercel deploy --prod
         <div class="container">
             <div class="partnership-inner">
                 <div class="partnership-copy">
-                    <span class="eyebrow eyebrow-dark">The flagship. Both worlds, one retainer.</span>
+                    <span class="eyebrow eyebrow-dark">Want it handled every month?</span>
                     <h2 class="section-title">The Growth Partnership.</h2>
                     <p>One monthly partnership that combines both sides of the studio: a steady stream of cinematic content <em>and</em> the systems that capture and convert it. Look premium and run smarter, without juggling a photographer, a developer and an agency.</p>
-                    <p class="partnership-price">From <strong>R5,000/mo</strong>. Less than hiring a photographer and a developer separately.</p>
-                    <a href="#contact" class="btn btn-primary" data-prefill="Growth Partnership">Become a partner</a>
+                    <p class="partnership-price">Ask me about a monthly plan that combines content and systems for one simple fee.</p>
+                    <a href="#contact" class="btn btn-primary" data-prefill="Growth Partnership">Ask about a plan</a>
                 </div>
                 <ul class="partnership-list">
                     <li><i class="fa-solid fa-film" aria-hidden="true"></i> Monthly cinematic reels &amp; photos</li>
@@ -230,7 +232,7 @@ $ vercel deploy --prod
             <div class="faq-list">
                 <details class="faq-item" open><summary>What do you build?</summary><p>Websites, booking and ordering systems, automation, reporting dashboards and AI workflows. Background in data and software engineering, with 5+ apps built and deployed.</p></details>
                 <details class="faq-item"><summary>What's your background?</summary><p>I work in data and software, including enterprise platform work across Snowflake, Microsoft Fabric, Azure Data Factory, Databricks and Power BI. For the businesses I help directly, that just means it is built properly and it lasts.</p></details>
-                <details class="faq-item"><summary>What does it cost?</summary><p>A website starts from <strong>R3,000</strong>, an automation from <strong>R2,500</strong>. Every project is scoped to the job, so book a free call and we will size it properly. Ongoing work runs through the <strong>Growth Partnership, from R5,000 a month</strong>.</p></details>
+                <details class="faq-item"><summary>What does it cost?</summary><p>A website starts from <strong>R3,000</strong>, an automation from <strong>R2,500</strong>. Every project is scoped to the job, so book a free call and we will size it properly. Ongoing work runs through a simple monthly plan, just ask and I will tailor it.</p></details>
                 <details class="faq-item"><summary>Can you get my business found in ChatGPT or Gemini?</summary><p>Yes. That is the AI discoverability service: structured data, clean content, an <code>llms.txt</code> file and crawler friendly setup, so AI answer engines can find and recommend you. This site uses the same techniques.</p></details>
                 <details class="faq-item"><summary>Do you work remotely?</summary><p>Yes. Software and automation work is delivered for clients across South Africa and remotely worldwide.</p></details>
             </div>
