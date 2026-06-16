@@ -1007,6 +1007,12 @@ h1 em, h2 em, h3 em {
 .landing-logo-svg { width: 330px; max-width: 80%; height: auto; color: var(--paper); display: block; }
 .landing-logo { font-family: var(--font-display); font-size: 1.4rem; color: var(--paper); letter-spacing: -0.01em; }
 .landing-tagline { font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); }
+.landing-tagline .tag-line { display: inline; }
+.landing-tagline .tag-dot { display: inline; }
+@media (max-width: 600px) {
+    .landing-tagline .tag-line { display: block; }
+    .landing-tagline .tag-dot { display: none; }
+}
 .landing-question { text-align: center; color: var(--paper); font-weight: 400; font-size: clamp(1.4rem, 3vw, 2.1rem); padding: 1.1rem 1.5rem 0.4rem; opacity: 0.95; }
 .landing-sub { text-align: center; color: var(--paper); font-size: 1rem; max-width: 600px; margin: 0 auto; padding: 0 1.5rem; opacity: 0.85; }
 .landing-bridge { text-align: center; color: rgba(244, 239, 231, 0.6); font-size: 0.85rem; max-width: 640px; margin: 0.5rem auto 0; padding: 0 1.5rem 0.5rem; line-height: 1.6; }
