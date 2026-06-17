@@ -1038,6 +1038,10 @@ h1 em, h2 em, h3 em {
 .landing-contact { display: flex; gap: 1.4rem; }
 .landing-contact a { color: rgba(244,239,231,0.6); font-size: 1.15rem; transition: color 0.3s var(--ease); }
 .landing-contact a:hover { color: var(--gold); }
+.landing-credit { margin: 0; color: rgba(244,239,231,0.45); font-size: 0.72rem; letter-spacing: 0.04em; }
+.landing-credit a { color: rgba(244,239,231,0.65); text-decoration: none; transition: color 0.3s var(--ease); }
+.landing-credit a:hover { color: var(--gold); }
+.landing-credit .fa-linkedin { font-size: 0.92em; margin-left: 0.2rem; }
 
 /* Homepage: scroll cue, why-both, trust, closing */
 .landing-scroll { display: inline-flex; align-items: center; gap: 0.5rem; margin: 1.75rem auto 0; color: rgba(244,239,231,0.6); text-decoration: none; font-size: 0.74rem; letter-spacing: 0.16em; text-transform: uppercase; font-family: var(--font-mono); transition: color 0.3s var(--ease); }
@@ -1123,6 +1127,8 @@ h1 em, h2 em, h3 em {
 .nav-link-switch { color: var(--gold-deep); font-weight: 600; }
 .foot-link { color: rgba(244,239,231,0.7); text-decoration: none; }
 .foot-link:hover { color: var(--gold); }
+.foot-credit { margin-top: 0.55rem; font-size: 0.76rem; opacity: 0.85; }
+.foot-credit .fa-linkedin { font-size: 0.92em; margin-left: 0.25rem; }
 
 /* ============================================================
    Responsive — new components
