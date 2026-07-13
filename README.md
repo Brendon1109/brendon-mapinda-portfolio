@@ -18,15 +18,16 @@ Personal brand site for **Brendon Mapinda**. A landing **chooser** sends visitor
 
 | Studio (sessions) | Price | | Studio (events) | Price |
 | --- | --- | --- | --- | --- |
-| Mini Session | R500 | | Basic Event | R1,500 |
-| Signature *(most booked)* | R850 | | Half-Day | R2,000 |
-| Premium Creative | R1,000 | | Full Event | R2,500 |
+| Mini Session | R500 | | Basic Event | R2,000 |
+| Signature *(most booked)* | R850 | | Half-Day | R3,500 |
+| Premium Creative | R1,000 | | Full Event | R5,000 |
 
 | Systems | Price |
 | --- | --- |
-| Automation | from R2,500 |
-| Custom Build | from R3,000 |
-| Growth Partnership | from R5,000 / month |
+| Website | from R2,000 |
+| Custom Build | from R3,500 |
+| Automation | from R5,000 |
+| Growth Partnership | monthly plan, tailored on request |
 
 ## Lead capture
 
