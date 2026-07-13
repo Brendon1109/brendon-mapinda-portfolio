@@ -27,7 +27,7 @@ Personal brand site for **Brendon Mapinda**. A landing **chooser** sends visitor
 | Website | from R2,000 |
 | Custom Build | from R3,500 |
 | Automation | from R5,000 |
-| Growth Partnership | from R5,000 / month |
+| Growth Partnership | monthly plan, tailored on request |
 
 ## Lead capture
 
