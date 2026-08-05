@@ -549,6 +549,15 @@ h1 em, h2 em, h3 em {
 .price.small { font-size: 1.9rem; margin-bottom: 1rem; }
 .price.light { color: var(--paper); }
 .price-range { font-size: 1.2rem; color: var(--slate); font-weight: 300; margin-left: 0.25rem; }
+/* The typical band under a "from" price, so a quote does not anchor at the floor. */
+.price-band {
+    font-size: 0.82rem;
+    line-height: 1.45;
+    color: var(--slate);
+    margin: -0.6rem 0 1.4rem;
+    letter-spacing: 0.01em;
+}
+.offer-card .price-band { color: rgba(255, 255, 255, 0.62); }
 .price-features { list-style: none; margin-bottom: 2.25rem; flex: 1; }
 .price-features li {
     position: relative;
