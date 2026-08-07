@@ -1,0 +1,11 @@
+# Parsed by Cloudflare Workers static assets, never served as a file itself.
+# Replaces the headers block that lived in vercel.json.
+#
+# Media is immutable for a year, so replacing an image or a video in place will
+# not reach a returning visitor. Use a new filename, same rule as on Vercel.
+
+/images/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/videos/*
+  Cache-Control: public, max-age=31536000, immutable

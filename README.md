@@ -10,9 +10,13 @@ Personal brand site for **Brendon Mapinda**. A landing **chooser** sends visitor
 
 ## Live
 
-- **Production (Vercel):** https://brendon-mapinda-portfolio.vercel.app
-- Deploy: `vercel deploy --prod` from the repo root (Vercel CLI, logged in as `brendon1109`).
-- Config: [vercel.json](vercel.json) (static, long-cache headers for images/videos).
+- **Production (Cloudflare Workers):** https://brendon-mapinda-portfolio.breazy.workers.dev
+- Deploy: `npx wrangler deploy` from the repo root. Cloudflare account `bmapinda303@gmail.com`, which is not the login the browser usually sits in, so check the account switcher before assuming a permissions problem.
+- Config: [wrangler.jsonc](wrangler.jsonc). Static assets only, no Worker script and still no build step.
+- Caching: [_headers](_headers) carries the one year immutable rule for `images/` and `videos/`.
+- Not published: [.assetsignore](.assetsignore) lists the repo files that must never become a public URL. `assets.directory` is the repo root, so anything not in that list is served.
+- URLs are extensionless. `/studio` and `/systems` are the canonical paths, and `/studio.html` 307s to `/studio` so old inbound links still land.
+- **Old home, still running:** https://brendon-mapinda-portfolio.vercel.app. The Vercel project is still git connected to `main`, so it redeploys on every push and stays a working fallback. [vercel.json](vercel.json) was updated to serve from `public/` and to use `cleanUrls`, which matches the extensionless URLs Cloudflare serves. Both copies carry the same canonical tags pointing at the Cloudflare host, so search engines consolidate on the new one. Delete the Vercel project once the move has settled.
 
 ## Pricing on the site (ZAR)
 
@@ -64,7 +68,8 @@ HTML5 + modern CSS (custom properties, grid, fluid type), vanilla JS (nav, revea
 ├── js/script.js     # Nav, reveal, lightbox, enquiry form
 ├── images/          # gallery-*, og-cover
 ├── videos/          # reel-* + posters
-├── llms.txt · robots.txt · sitemap.xml · vercel.json · favicon.svg
+├── llms.txt · robots.txt · sitemap.xml · favicon.svg
+├── wrangler.jsonc · _headers · .assetsignore   # Cloudflare Workers hosting
 ```
 
 ## Links

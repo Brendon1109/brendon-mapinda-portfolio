@@ -1,0 +1,23 @@
+{
+  // Static assets only. There is no Worker script and no build step, which is the
+  // whole point of this repo: the HTML in git is the HTML that is served.
+  "name": "brendon-mapinda-portfolio",
+  "compatibility_date": "2026-08-07",
+  "assets": {
+    // Everything under public/ is served at a public URL and nothing outside it
+    // is. That boundary is a directory rather than an ignore list on purpose:
+    // pointing this at the repo root uploaded .git and .vercel/project.json too,
+    // and an ignore list is one forgotten line away from doing it again.
+    "directory": "./public",
+
+    // Default behaviour, written out so nobody has to look it up. A request for
+    // /studio serves studio.html, and /studio.html 307s to /studio. Every
+    // canonical, og:url and sitemap entry in this repo uses the extensionless
+    // form, so the redirect only ever fires for an old inbound link.
+    "html_handling": "auto-trailing-slash",
+
+    // No 404.html in the repo, so an unknown path gets a plain 404 rather than
+    // a soft 200. Add a 404.html and switch this to "404-page" if that changes.
+    "not_found_handling": "none"
+  }
+}

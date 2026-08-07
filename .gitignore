@@ -33,3 +33,6 @@ pids
 tmp/
 temp/
 .vercel
+
+# Wrangler local state and cache, holds the Cloudflare account id
+.wrangler/
