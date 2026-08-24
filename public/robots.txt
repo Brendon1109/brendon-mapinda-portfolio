@@ -1,13 +1,10 @@
 # Brendon Mapinda — Creative Studio + Automation Lab
 # This site WANTS to be found, read and cited by AI answer engines.
 # (robots.txt groups are NOT inherited — a crawler obeys only its most specific
-#  matching group — so the AI bots below repeat the same Allow/Disallow rules.)
+#  matching group — so the AI bots below repeat the same Allow rule.)
 
 User-agent: *
 Allow: /
-Disallow: /deploy.bat
-Disallow: /DEPLOYMENT.md
-Disallow: /README.md
 
 # ── AI answer engines, assistants & training crawlers (explicitly welcome) ──
 User-agent: GPTBot
@@ -31,9 +28,6 @@ User-agent: DuckAssistBot
 User-agent: cohere-ai
 User-agent: YouBot
 Allow: /
-Disallow: /deploy.bat
-Disallow: /DEPLOYMENT.md
-Disallow: /README.md
 
 # Sitemap
-Sitemap: https://brendon-mapinda-portfolio.vercel.app/sitemap.xml
+Sitemap: https://brendon-mapinda-portfolio.breazy.workers.dev/sitemap.xml
