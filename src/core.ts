@@ -83,6 +83,25 @@ export interface CollectConfig {
    */
   binding?: { fetch(request: Request): Promise<Response> };
   /**
+   * Which platform terminates the request. **Declared, never sniffed.**
+   *
+   * An earlier version worked this out by looking for `x-vercel-id`, which was
+   * itself a spoof: Cloudflare does not strip that header, so a caller could
+   * present it alongside a forged `x-real-ip` and hand a Worker any visitor
+   * identity it liked. That value keys the rate limiter and feeds the counting
+   * HMAC, so rotating it per request meant the limiter never fired while fake
+   * unique visitors poured into a database shared with every other site. One
+   * spoof traded for another.
+   *
+   * The site always knows what it is running on and the request never does, so
+   * it is configuration. Each platform then trusts ONLY the header its own edge
+   * guarantees, and every other candidate is ignored rather than ranked.
+   *
+   * Unset falls back to reading nothing but a literal connecting address, which
+   * degrades to a shared rate limit bucket rather than to a forgeable one.
+   */
+  platform?: "vercel" | "cloudflare";
+  /**
    * Returning versus new. Off for the two UK sites.
    *
    * The UK statistical purposes exception covers how a service is used, not who
@@ -204,8 +223,16 @@ export function redactPath(pathname: string): string {
   for (let i = 0; i < parts.length; i++) {
     const seg = parts[i];
     if (!seg) { if (i > 0) out += "/"; continue; }
-    const secret =
-      CAPABILITY_PREFIX.test(seg) || UUID.test(seg) || LONG_HEX.test(seg) || MIXED_LONG.test(seg);
+    // Checked per dot separated part too. VenueOS signs a table QR as
+    // `{code}.{sig}`, and the dot falls outside the anchored character class,
+    // so the whole thing sailed through as ordinary text. It cannot reach here
+    // today because that route redirects before a document exists, but it would
+    // the day anyone puts it in an href, and that is not a safe thing to leave
+    // resting on a routing detail.
+    const parts2 = seg.split(".");
+    const secret = parts2.some(
+      (q) => CAPABILITY_PREFIX.test(q) || UUID.test(q) || LONG_HEX.test(q) || MIXED_LONG.test(q),
+    );
     out += (i > 0 ? "/" : "") + (secret ? "[id]" : seg);
   }
   return out || "/";
@@ -293,11 +320,16 @@ export async function collect(
   //
   // Vercel overwrites `x-forwarded-for` itself specifically to prevent
   // spoofing, so where a Vercel request marker is present its headers win.
-  const onVercel = headers.get("x-vercel-id") !== null || headers.get("x-vercel-ip-country") !== null;
+  const onVercel = cfg.platform === "vercel";
   const ip = (onVercel
+    // Vercel overwrites x-forwarded-for itself specifically to prevent
+    // spoofing, and documents x-real-ip as identical to it.
     ? headers.get("x-real-ip") || (headers.get("x-forwarded-for") || "").split(",")[0].trim()
-    : headers.get("cf-connecting-ip") || headers.get("x-real-ip")
-      || (headers.get("x-forwarded-for") || "").split(",")[0].trim()
+    // On Cloudflare only cf-connecting-ip is written by the edge. The others
+    // are caller supplied and are deliberately not consulted at all.
+    : cfg.platform === "cloudflare"
+      ? headers.get("cf-connecting-ip")
+      : null
   ) || "0.0.0.0";
 
   if (rateLimited(ip)) return none;
@@ -345,11 +377,10 @@ export async function collect(
     // Coarse location from edge headers. Never a raw IP. City level is named as
     // acceptable in the UK regulator's own guidance.
     // Same precedence rule as the IP above, for the same reason.
-    country: onVercel
-      ? headers.get("x-vercel-ip-country")
-      : headers.get("cf-ipcountry") || headers.get("x-vercel-ip-country"),
-    region: headers.get("x-vercel-ip-country-region") || (onVercel ? null : headers.get("cf-region-code")),
-    city: safeDecode(headers.get("x-vercel-ip-city") || (onVercel ? null : headers.get("cf-ipcity"))),
+    // Same rule as the IP: only the header this platform's edge writes.
+    country: onVercel ? headers.get("x-vercel-ip-country") : headers.get("cf-ipcountry"),
+    region: onVercel ? headers.get("x-vercel-ip-country-region") : headers.get("cf-region-code"),
+    city: safeDecode(onVercel ? headers.get("x-vercel-ip-city") : headers.get("cf-ipcity")),
     ref_host: typeof body.ref === "string" ? body.ref.slice(0, 255) : null,
   };
 
