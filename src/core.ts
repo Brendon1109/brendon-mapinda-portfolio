@@ -98,6 +98,39 @@ export interface EdgeHeaders {
   get(name: string): string | null;
 }
 
+/**
+ * Per instance rate limit on the collect route.
+ *
+ * This endpoint is public and unauthenticated by necessity, and without a
+ * limit it is an amplifier: one anonymous POST becomes one function
+ * invocation, one call to the collector, and two database row writes against a
+ * free tier shared by the whole estate. On Vercel's Hobby plan the penalty for
+ * blowing the invocation ceiling is that the project is paused for thirty
+ * days, which on a site selling tickets means the shop dark for a month.
+ *
+ * In memory and per instance, so it resets on deploy and does not see across
+ * serverless instances. That is a real limitation and it is stated rather than
+ * hidden. It still removes the single source flood, which is the case that
+ * actually empties the budget. A shared store would cost a round trip on a
+ * beacon that fires on every page view, which is the wrong trade here.
+ */
+const RATE_MAX = 60;
+const RATE_WINDOW_MS = 60_000;
+const hits = new Map<string, { n: number; until: number }>();
+
+function rateLimited(ip: string): boolean {
+  const now = Date.now();
+  // Bound the map so a spray of forged addresses cannot grow it without limit.
+  if (hits.size > 5000) hits.clear();
+  const cur = hits.get(ip);
+  if (!cur || now > cur.until) {
+    hits.set(ip, { n: 1, until: now + RATE_WINDOW_MS });
+    return false;
+  }
+  cur.n += 1;
+  return cur.n > RATE_MAX;
+}
+
 const COOKIE = "_bza";
 const OPT_OUT = "bz_optout";
 const TWO_YEARS = 63072000;
@@ -205,12 +238,29 @@ export async function collect(
 
   if (!body || (body.event !== "view" && body.event !== "leave")) return none;
 
-  const ua = headers.get("user-agent") || "";
-  const ip =
-    headers.get("cf-connecting-ip") ||
-    headers.get("x-real-ip") ||
-    (headers.get("x-forwarded-for") || "").split(",")[0].trim() ||
-    "0.0.0.0";
+  // Capped like every other field. It was the one unbounded input, it feeds
+  // the HMAC below, and it is fully attacker controlled.
+  const ua = (headers.get("user-agent") || "").slice(0, 512);
+
+  // IP precedence, and the order matters for integrity rather than tidiness.
+  //
+  // `cf-connecting-ip` is written by Cloudflare's edge and is trustworthy on a
+  // Worker. On Vercel it is not a platform header at all, so it arrives
+  // straight from the client untouched, and it was being read FIRST. Since the
+  // IP feeds visitorDay below, and every unique visitor figure counts distinct
+  // on that, anyone could have minted unlimited fake visitors with a header in
+  // a loop.
+  //
+  // Vercel overwrites `x-forwarded-for` itself specifically to prevent
+  // spoofing, so where a Vercel request marker is present its headers win.
+  const onVercel = headers.get("x-vercel-id") !== null || headers.get("x-vercel-ip-country") !== null;
+  const ip = (onVercel
+    ? headers.get("x-real-ip") || (headers.get("x-forwarded-for") || "").split(",")[0].trim()
+    : headers.get("cf-connecting-ip") || headers.get("x-real-ip")
+      || (headers.get("x-forwarded-for") || "").split(",")[0].trim()
+  ) || "0.0.0.0";
+
+  if (rateLimited(ip)) return none;
 
   const day = today();
   const wantReturning = cfg.returning !== false;
@@ -254,9 +304,12 @@ export async function collect(
     ua,
     // Coarse location from edge headers. Never a raw IP. City level is named as
     // acceptable in the UK regulator's own guidance.
-    country: headers.get("cf-ipcountry") || headers.get("x-vercel-ip-country"),
-    region: headers.get("x-vercel-ip-country-region") || headers.get("cf-region-code"),
-    city: safeDecode(headers.get("x-vercel-ip-city") || headers.get("cf-ipcity")),
+    // Same precedence rule as the IP above, for the same reason.
+    country: onVercel
+      ? headers.get("x-vercel-ip-country")
+      : headers.get("cf-ipcountry") || headers.get("x-vercel-ip-country"),
+    region: headers.get("x-vercel-ip-country-region") || (onVercel ? null : headers.get("cf-region-code")),
+    city: safeDecode(headers.get("x-vercel-ip-city") || (onVercel ? null : headers.get("cf-ipcity"))),
     ref_host: typeof body.ref === "string" ? body.ref.slice(0, 255) : null,
   };
 
