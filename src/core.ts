@@ -101,6 +101,13 @@ export interface CollectConfig {
    * degrades to a shared rate limit bucket rather than to a forgeable one.
    */
   platform?: "vercel" | "cloudflare";
+  // NOTE for adapters: prefer HARDCODING this over reading an env var, wherever
+  // the platform is known at build time. VenueOS made that call and it is the
+  // right one. If it is read from configuration and the variable goes missing,
+  // this falls back to "vercel", which on a Worker means trusting x-real-ip and
+  // x-forwarded-for, both caller supplied and both forgeable. A missing
+  // environment variable must never be able to turn a site that takes orders
+  // into one that believes whatever a stranger sends. Fail safe, not fail open.
   /**
    * Returning versus new. Off for the two UK sites.
    *
@@ -230,14 +237,21 @@ const MIXED_LONG = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z0-9_-]{12,}$/;
  * Both halves must be at least six characters, which is what keeps `/v1.2/`
  * and any ordinary versioned path out of it.
  */
-const FILE_EXT = /^(html?|css|js|mjs|json|xml|txt|md|csv|pdf|png|jpe?g|gif|svg|webp|avif|ico|woff2?|ttf|mp4|webm|mp3|zip|map|rss|atom)$/i;
+const FILE_EXT = /^(html?|css|js|mjs|json|jsonld|xml|txt|md|csv|pdf|png|jpe?g|gif|svg|webp|avif|ico|webmanifest|manifest|woff2?|ttf|eot|mp4|webm|mp3|wav|zip|gz|map|rss|atom|vtt|wasm)$/i;
 const OPAQUE_HALF = /^[A-Za-z0-9_-]{6,}$/;
 
 function looksSigned(seg: string): boolean {
   const parts = seg.split(".");
   if (parts.length !== 2) return false;
-  if (FILE_EXT.test(parts[1])) return false;
-  return OPAQUE_HALF.test(parts[0]) && OPAQUE_HALF.test(parts[1]);
+  // The ?? "" are for repos running noUncheckedIndexedAccess, where an indexed
+  // read is string | undefined even behind the length guard above. An empty
+  // string fails both tests, so the behaviour is identical either way and the
+  // file drops into a strict repo without an edit. VenueOS hit this; a copy
+  // that has to be patched per repo is a copy that drifts.
+  const head = parts[0] ?? "";
+  const tail = parts[1] ?? "";
+  if (FILE_EXT.test(tail)) return false;
+  return OPAQUE_HALF.test(head) && OPAQUE_HALF.test(tail);
 }
 
 export function redactPath(pathname: string): string {
