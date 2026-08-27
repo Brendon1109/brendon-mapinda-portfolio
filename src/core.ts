@@ -364,7 +364,7 @@ export async function collect(
   const ip = (onVercel
     // Vercel overwrites x-forwarded-for itself specifically to prevent
     // spoofing, and documents x-real-ip as identical to it.
-    ? headers.get("x-real-ip") || (headers.get("x-forwarded-for") || "").split(",")[0].trim()
+    ? headers.get("x-real-ip") || ((headers.get("x-forwarded-for") || "").split(",")[0] ?? "").trim()
     // On Cloudflare only cf-connecting-ip is written by the edge. The others
     // are caller supplied and are deliberately not consulted at all.
     : cfg.platform === "cloudflare"
