@@ -60,7 +60,7 @@
   <h2>The one thing stored on your device</h2>
   <p>A single small cookie called <code>_bza</code>. It holds a date and two numbers: when you first visited, how many separate days you have visited, and when you were last here. <strong>It contains no identifier.</strong> Two different people who first visited on the same day and have been back the same number of times would have identical cookies, and there is no way to tell them apart.</p>
   <p>It exists so I can tell roughly how many people come back, rather than treating every visit as a stranger. It lasts two years unless you clear it, and it does nothing else. If you switch the counting off below, it is deleted.</p>
-  <p>Your IP address is used for a moment to work out your city and to produce a daily counting number, then discarded. That daily number is scrambled in a way that changes every night, so activity on one day cannot be joined to another. It is never stored.</p>
+  <p>Your IP address is used for a moment to work out your city and to produce a daily counting number, then discarded. <strong>Your IP itself is never stored.</strong> The counting number derived from it is stored, and I would rather say so than let you assume otherwise. It is scrambled with a key that changes every night and differs per site, so it cannot be matched to you on another day, or to you on any other site of mine, and it carries nothing that could contact you. It is what makes counting people possible at all rather than counting clicks. It is deleted with everything else after three days.
 
   <h2>Why this is allowed, and your right to say no</h2>
   <p>The lawful basis is legitimate interest under section 11(1)(f) of POPIA: knowing which pages are useful is how I decide what to fix and what to remove. There is a written assessment behind that, and you can ask to see it.</p>
@@ -74,7 +74,7 @@
   </div>
 
   <h2>How long anything is kept</h2>
-  <p>Individual page views are kept for 90 days at most and are then deleted. What survives is a daily count per page, which is a number and cannot be traced to anyone.</p>
+  <p><strong>Three days.</strong> Individual page views, and the daily counting number above, are deleted after that. What survives is a daily total per page, which is a number and cannot be traced to anyone. Three days rather than longer because the nightly summary has already taken every figure I use by then, so keeping the detail beyond that would be holding something about you for no reason.
 
   <h2>Where it is processed</h2>
   <p>The site and its counting run on Cloudflare, which processes outside South Africa. That is a cross border transfer under section 72 of POPIA, and it is covered by Cloudflare's data processing terms. No personal information leaves in a form that identifies anybody.</p>
@@ -87,6 +87,7 @@
   <p>The site is the truth and this page is the mistake. Tell me and I will fix the page the same day.</p>
 </main>
 
+<script src="/bz.js" data-site="portfolio" defer></script>
 <script src="/js/privacy-toggle.js"></script>
 </body>
 </html>
