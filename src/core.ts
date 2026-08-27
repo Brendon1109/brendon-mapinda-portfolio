@@ -216,6 +216,30 @@ const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 const LONG_HEX = /^[0-9a-f]{16,}$/i;
 const MIXED_LONG = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z0-9_-]{12,}$/;
 
+/**
+ * A signed token of the form `code.signature`, which the length rules above
+ * miss entirely.
+ *
+ * VenueOS signs its table QR as an 8 character code plus a 10 character
+ * signature. Splitting on the dot was necessary and not sufficient: each half
+ * falls under the 12 character floor, and Crockford base32 has no lowercase
+ * hex run for LONG_HEX to catch, so the whole token sailed through in full.
+ *
+ * The signal is not length, it is shape. Two opaque halves either side of a
+ * dot, neither of them a file extension, is a signature and not a filename.
+ * Both halves must be at least six characters, which is what keeps `/v1.2/`
+ * and any ordinary versioned path out of it.
+ */
+const FILE_EXT = /^(html?|css|js|mjs|json|xml|txt|md|csv|pdf|png|jpe?g|gif|svg|webp|avif|ico|woff2?|ttf|mp4|webm|mp3|zip|map|rss|atom)$/i;
+const OPAQUE_HALF = /^[A-Za-z0-9_-]{6,}$/;
+
+function looksSigned(seg: string): boolean {
+  const parts = seg.split(".");
+  if (parts.length !== 2) return false;
+  if (FILE_EXT.test(parts[1])) return false;
+  return OPAQUE_HALF.test(parts[0]) && OPAQUE_HALF.test(parts[1]);
+}
+
 export function redactPath(pathname: string): string {
   const raw = (pathname || "/").slice(0, 512);
   let out = "";
@@ -230,9 +254,11 @@ export function redactPath(pathname: string): string {
     // the day anyone puts it in an href, and that is not a safe thing to leave
     // resting on a routing detail.
     const parts2 = seg.split(".");
-    const secret = parts2.some(
-      (q) => CAPABILITY_PREFIX.test(q) || UUID.test(q) || LONG_HEX.test(q) || MIXED_LONG.test(q),
-    );
+    const secret =
+      looksSigned(seg) ||
+      parts2.some(
+        (q) => CAPABILITY_PREFIX.test(q) || UUID.test(q) || LONG_HEX.test(q) || MIXED_LONG.test(q),
+      );
     out += (i > 0 ? "/" : "") + (secret ? "[id]" : seg);
   }
   return out || "/";
