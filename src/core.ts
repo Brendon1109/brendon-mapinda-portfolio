@@ -171,6 +171,46 @@ function band(n: number): string {
   return "16+";
 }
 
+/**
+ * Redact anything in a path that could be a secret.
+ *
+ * Found on VenueOS, and it is the most dangerous thing this review turned up.
+ * The beacon sends `location.pathname` as it stands, and VenueOS addresses a
+ * patron's tab, order and reservation by an unguessable code IN THE URL, which
+ * is the whole authentication for that patron. Unredacted, the analytics store
+ * would have filled with live credentials, and the dashboard would have
+ * displayed them in a page list.
+ *
+ * It is not a VenueOS problem. Every capability URL in the portfolio has this
+ * shape: Tsakani's ticket and order links, any password reset, any share link,
+ * any unsubscribe token. So the redaction belongs here, applied to every site,
+ * rather than in one site's route where the next app repeats the mistake.
+ *
+ * Deliberately aggressive. A path segment that is long and mixes letters with
+ * digits, a UUID, a long hex or base64ish run, or anything after a known
+ * capability prefix, is replaced. Losing the distinction between two product
+ * pages costs a little reporting detail. Storing one live token costs a
+ * patron's order, and a page nobody can un-see it in.
+ */
+const CAPABILITY_PREFIX = /^(tab|vo|rsv|ord|tkt|inv|tok|key|sess|share|reset|confirm)[-_]/i;
+const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+const LONG_HEX = /^[0-9a-f]{16,}$/i;
+const MIXED_LONG = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z0-9_-]{12,}$/;
+
+export function redactPath(pathname: string): string {
+  const raw = (pathname || "/").slice(0, 512);
+  let out = "";
+  const parts = raw.split("/");
+  for (let i = 0; i < parts.length; i++) {
+    const seg = parts[i];
+    if (!seg) { if (i > 0) out += "/"; continue; }
+    const secret =
+      CAPABILITY_PREFIX.test(seg) || UUID.test(seg) || LONG_HEX.test(seg) || MIXED_LONG.test(seg);
+    out += (i > 0 ? "/" : "") + (secret ? "[id]" : seg);
+  }
+  return out || "/";
+}
+
 export function readCookie(cookieHeader: string, name: string): string | undefined {
   const m = cookieHeader.match(new RegExp(`(?:^|;\\s*)${name}=([^;]*)`));
   return m ? m[1] : undefined;
@@ -295,7 +335,7 @@ export async function collect(
   const payload = {
     site: cfg.site,
     event: body.event,
-    path: typeof body.path === "string" ? body.path.slice(0, 512) : "/",
+    path: redactPath(typeof body.path === "string" ? body.path : "/"),
     occurred_at: typeof body.occurred_at === "number" ? body.occurred_at : Date.now(),
     dwell_ms: typeof body.dwell_ms === "number" ? body.dwell_ms : null,
     visitor_day: await visitorDay(cfg.site, cfg.salt, ip, ua),
@@ -330,7 +370,13 @@ export async function collect(
 
   // A service binding where there is one, plain fetch otherwise. See the
   // `binding` note above for why this is not merely a fast path on Cloudflare.
-  const send = (cfg.binding ? cfg.binding.fetch(req) : fetch(req, { signal: AbortSignal.timeout(2500) }))
+  // Wrapped in Promise.resolve().then so a SYNCHRONOUS throw becomes a
+  // rejection. Wrangler's local service binding stub throws rather than
+  // rejecting, and a bare `binding.fetch(req).then(...)` lets that escape the
+  // catch entirely, which took out the cookie and lost the event while logging
+  // nothing at all. Exactly the silent failure this system exists to prevent.
+  const send = Promise.resolve()
+    .then(() => (cfg.binding ? cfg.binding.fetch(req) : fetch(req, { signal: AbortSignal.timeout(2500) })))
     .then((r) => {
       if (!r.ok) console.warn(`bz: collector returned ${r.status} for ${cfg.site}`);
     })
