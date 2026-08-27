@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy · Brendon Mapinda</title>
+<meta name="description" content="What this site records, why, and how to switch it off.">
+<link rel="canonical" href="https://brendon-mapinda-portfolio.breazy.workers.dev/privacy">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#0b0e14">
+<style>
+  :root { --bg:#0b0e14; --ink:#e8ecf2; --dim:#93a0b4; --line:#1e2733; --accent:#4ecda0; }
+  * { box-sizing:border-box; }
+  body { margin:0; padding:2.5rem 1.25rem 5rem; background:var(--bg); color:var(--ink);
+    font:16px/1.65 ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif; }
+  main { max-width:44rem; margin:0 auto; }
+  h1 { font-size:2rem; line-height:1.15; margin:0 0 .3rem; }
+  h2 { font-size:1.15rem; margin:2.4rem 0 .4rem; }
+  p, li { color:var(--ink); }
+  .dim { color:var(--dim); }
+  a { color:var(--accent); }
+  ul { padding-left:1.2rem; }
+  li { margin:.35rem 0; }
+  .box { border:1px solid var(--line); border-radius:10px; padding:1.2rem 1.4rem; margin:1.6rem 0; }
+  button { font:inherit; font-weight:600; padding:.6rem 1.1rem; border-radius:8px; border:1px solid var(--accent);
+    background:transparent; color:var(--accent); cursor:pointer; }
+  button:hover { background:var(--accent); color:var(--bg); }
+  button:disabled { opacity:.55; cursor:default; }
+  #status { margin-top:.7rem; font-size:.92rem; }
+  .back { display:inline-block; margin-bottom:1.6rem; font-size:.9rem; }
+</style>
+</head>
+<body>
+<main>
+  <a class="back" href="/">&larr; Back</a>
+  <h1>Privacy</h1>
+  <p class="dim">Last updated 27 August 2026.</p>
+
+  <p>This is a small portfolio site. It has no accounts, no login and no shop. This page says exactly what it records and how to stop it, in plain words.</p>
+
+  <h2>Who is responsible</h2>
+  <p>Brendon Mapinda, Cape Town, South Africa. For anything on this page, email <a href="mailto:mapindabrendon@gmail.com">mapindabrendon@gmail.com</a>. This notice is issued under the Protection of Personal Information Act, 2013.</p>
+
+  <h2>What the site records</h2>
+  <p>Visitor numbers, and nothing else. When you open a page, the site notes:</p>
+  <ul>
+    <li>which page you opened, and how many seconds it was actually on your screen</li>
+    <li>whether you have been here before, as a yes or no</li>
+    <li>your city, region and country, worked out roughly from your connection</li>
+    <li>whether you are on a phone, a tablet or a computer, and which browser</li>
+    <li>the website that linked you here, if any</li>
+  </ul>
+  <p>To count seconds honestly it only counts time the page was genuinely in front of you. Leave a tab open in the background and that time is not counted.</p>
+
+  <h2>What it never records</h2>
+  <p>No name, no email address, no phone number, no IP address, no precise location, and nothing at all about what you do on any other website. There is no advertising, no Google Analytics, no Meta pixel, and nothing is sold or shared with anybody.</p>
+
+  <h2>The one thing stored on your device</h2>
+  <p>A single small cookie called <code>_bza</code>. It holds a date and two numbers: when you first visited, how many separate days you have visited, and when you were last here. <strong>It contains no identifier.</strong> Two different people who first visited on the same day and have been back the same number of times would have identical cookies, and there is no way to tell them apart.</p>
+  <p>It exists so I can tell roughly how many people come back, rather than treating every visit as a stranger. It lasts two years unless you clear it, and it does nothing else. If you switch the counting off below, it is deleted.</p>
+  <p>Your IP address is used for a moment to work out your city and to produce a daily counting number, then discarded. That daily number is scrambled in a way that changes every night, so activity on one day cannot be joined to another. It is never stored.</p>
+
+  <h2>Why this is allowed, and your right to say no</h2>
+  <p>The lawful basis is legitimate interest under section 11(1)(f) of POPIA: knowing which pages are useful is how I decide what to fix and what to remove. There is a written assessment behind that, and you can ask to see it.</p>
+  <p><strong>You have the right to object under section 11(3), and if you do I must stop.</strong> There is no balancing test and no argument, it simply stops. The button below is that switch and it works immediately.</p>
+
+  <div class="box">
+    <p style="margin-top:0"><strong>Analytics for this browser</strong></p>
+    <p class="dim" style="font-size:.93rem">This takes effect straight away on this device. You can turn it back on with the same button.</p>
+    <button id="toggle" type="button" disabled>Loading&hellip;</button>
+    <p id="status" class="dim"></p>
+  </div>
+
+  <h2>How long anything is kept</h2>
+  <p>Individual page views are kept for 90 days at most and are then deleted. What survives is a daily count per page, which is a number and cannot be traced to anyone.</p>
+
+  <h2>Where it is processed</h2>
+  <p>The site and its counting run on Cloudflare, which processes outside South Africa. That is a cross border transfer under section 72 of POPIA, and it is covered by Cloudflare's data processing terms. No personal information leaves in a form that identifies anybody.</p>
+
+  <h2>Your other rights</h2>
+  <p>You can object to the counting, which the button above does. Because nothing here identifies you, there is no personal record of you to access, correct or delete. If you believe otherwise, email me and I will look.</p>
+  <p>You may also complain to the Information Regulator of South Africa: <a href="https://inforegulator.org.za" target="_blank" rel="noopener">inforegulator.org.za</a>, complaints.IR@justice.gov.za.</p>
+
+  <h2>If this page and the site disagree</h2>
+  <p>The site is the truth and this page is the mistake. Tell me and I will fix the page the same day.</p>
+</main>
+
+<script src="/js/privacy-toggle.js"></script>
+</body>
+</html>

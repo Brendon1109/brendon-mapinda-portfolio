@@ -3,7 +3,31 @@
   // whole point of this repo: the HTML in git is the HTML that is served.
   "name": "brendon-mapinda-portfolio",
   "compatibility_date": "2026-08-07",
+
+  // Added 27 August 2026. This repo was static assets with no script, which
+  // meant no server, which meant no way to set the first party cookie that
+  // recognises a returning visitor on an iPhone. The script serves /api/e and
+  // hands every other request straight to ASSETS, so the site is unchanged.
+  "main": "src/worker.ts",
+
+  "vars": {
+    "BZ_SITE": "portfolio"
+  },
+
+  // A Worker CANNOT fetch another Worker over its *.workers.dev hostname on the
+  // same account. The edge short-circuits it and returns a 404 that never
+  // reaches the target, which reads exactly like a routing bug in your own
+  // code. A service binding calls the collector's fetch handler directly, with
+  // no network hop and no subrequest cost.
+  "services": [
+    { "binding": "COLLECTOR", "service": "breazy-analytics" }
+  ],
+
   "assets": {
+    // Named so the Worker script can fall through to it. Reserved in Pages
+    // projects, which is one more reason everything here is a Worker.
+    "binding": "ASSETS",
+
     // Everything under public/ is served at a public URL and nothing outside it
     // is. That boundary is a directory rather than an ignore list on purpose:
     // pointing this at the repo root uploaded .git and .vercel/project.json too,

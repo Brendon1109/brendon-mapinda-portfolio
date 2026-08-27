@@ -1,38 +1,4 @@
-# Dependencies
 node_modules/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# IDE files
-.vscode/settings.json
-.idea/
-*.swp
-*.swo
-
-# OS files
-.DS_Store
-Thumbs.db
-
-# Logs
-*.log
-
-# Runtime data
-pids
-*.pid
-*.seed
-*.pid.lock
-
-# Optional npm cache directory
-.npm
-
-# ESLint cache
-.eslintcache
-
-# Temporary folders
-tmp/
-temp/
-.vercel
-
-# Wrangler local state and cache, holds the Cloudflare account id
 .wrangler/
+.dev.vars
+.env.local

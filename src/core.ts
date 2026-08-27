@@ -1,0 +1,306 @@
+/**
+ * Breazy Analytics, the collect core.
+ *
+ * Every site's collect route is a thin adapter over this. Three adapters exist
+ * (Next.js, Astro, and a bare Worker fetch handler) and they must never grow
+ * their own copies of the logic below, because the cookie rules here are the
+ * difference between returning visitors working on an iPhone and not.
+ *
+ * ===========================================================================
+ * WHY THE ROUTE LIVES ON EACH SITE RATHER THAN CENTRALLY
+ * ===========================================================================
+ *
+ * Apple deletes anything a site's JavaScript stores on the device after seven
+ * days without a return visit. WebKit scopes it precisely: ITP deletes "all
+ * cookies created in JavaScript and all other script-writeable storage", the
+ * named types being IndexedDB, LocalStorage, Media keys, SessionStorage and
+ * Service Worker registrations.
+ *
+ * A cookie set by the site's OWN server, in an HTTP response, is in none of
+ * those categories, and WebKit separately confirms cookies sit outside the
+ * storage eviction policy entirely. That is the whole mechanism. A cookie from
+ * a central analytics domain would be third party and Safari blocks those
+ * outright, and a CNAME pointing at one is detected and capped back to seven
+ * days. iOS is about 40 per cent of VibesMap's visitors.
+ *
+ * Two traps that break it, both silent:
+ *
+ *   Serving this from a different host, say analytics.example.com, loses the
+ *   exemption even with no CNAME, because Safari caps cookies from a response
+ *   whose server sits in a different /16 from the document. Keep it on the
+ *   same host as the pages.
+ *
+ *   One shared collecting domain across many sites is what ITP classifies as a
+ *   prevalent resource, after which "all website data is deleted for classified
+ *   domains" that go 30 days without interaction, HttpOnly cookies included.
+ *   Per site collection means none of our domains ever looks like a tracker.
+ *
+ * ===========================================================================
+ * WHAT THE COOKIE HOLDS, AND WHY IT IS NOT AN IDENTIFIER
+ * ===========================================================================
+ *
+ * A date and two numbers: { f: first seen, n: days visited, l: last seen }.
+ * Two unrelated people with the same history carry byte for byte identical
+ * cookies. The server turns it into a boolean plus a coarse band and stores
+ * aggregate rows only, so no per person history exists to leak or to subpoena.
+ *
+ * That is what keeps this outside a consent gate. The UK regulator puts
+ * "connecting a visitor ID to their site activity" and "retaining the
+ * individual level information (after aggregating it)" back into consent
+ * territory. Holding the memory on the visitor's device and only counts on
+ * ours stays the right side of it.
+ */
+
+export interface CollectConfig {
+  /** Site slug. Must appear in the Worker's SITES allowlist. */
+  site: string;
+  /** Per site HMAC salt. NEVER shared between sites, see the section 57 note below. */
+  salt: string;
+  /** Shared key the central Worker checks. */
+  ingestSecret: string;
+  /** Central Worker ingest URL. */
+  endpoint: string;
+  /**
+   * A Cloudflare service binding to the collector Worker, where one is
+   * available. **On Cloudflare this is not an optimisation, it is the only
+   * thing that works.**
+   *
+   * Found while wiring the first site, 27 August 2026. A Worker cannot fetch
+   * another Worker over its `*.workers.dev` hostname on the same account: the
+   * edge short-circuits it and hands back a 404 that never reaches the target
+   * at all. Confirmed by tailing both Workers at once, where the caller logged
+   * a 404 and the collector logged nothing. It looks exactly like a routing
+   * bug in your own code and it is not.
+   *
+   * A service binding calls the other Worker's fetch handler directly, with no
+   * network hop, so it is also faster, costs no subrequest against the free
+   * tier ceiling, and needs no shared secret because only a Worker that has
+   * been granted the binding can call it at all.
+   *
+   * Sites not on the same Cloudflare account, meaning everything on Vercel,
+   * use the HTTPS endpoint instead. That path works fine from outside, which
+   * is why this trap stays hidden until the first Cloudflare site is wired.
+   */
+  binding?: { fetch(request: Request): Promise<Response> };
+  /**
+   * Returning versus new. Off for the two UK sites.
+   *
+   * The UK statistical purposes exception covers how a service is used, not who
+   * uses it, and the regulator puts retaining individual level information
+   * across aggregation cycles outside it. With this off nothing at all is
+   * stored on the device, so the UK device storage rule is not engaged and the
+   * question never arises.
+   */
+  returning?: boolean;
+}
+
+export interface EdgeHeaders {
+  get(name: string): string | null;
+}
+
+const COOKIE = "_bza";
+const OPT_OUT = "bz_optout";
+const TWO_YEARS = 63072000;
+
+interface VisitState { f: string; n: number; l: string }
+
+export function today(): string {
+  return new Date().toISOString().slice(0, 10);
+}
+
+function b64encode(s: string): string {
+  // btoa exists in Workers, Next edge and Node 16+. Kept in one place so an
+  // adapter cannot substitute a subtly different encoding and break every
+  // existing cookie in the field.
+  return btoa(s);
+}
+
+function readState(raw: string | undefined): VisitState | null {
+  if (!raw) return null;
+  try {
+    const p = JSON.parse(atob(decodeURIComponent(raw)));
+    if (typeof p?.f !== "string" || typeof p?.n !== "number") return null;
+    return {
+      f: p.f.slice(0, 10),
+      n: Math.min(Math.max(0, Math.floor(p.n)), 9999),
+      l: typeof p.l === "string" ? p.l.slice(0, 10) : p.f.slice(0, 10),
+    };
+  } catch {
+    return null;
+  }
+}
+
+function band(n: number): string {
+  if (n <= 1) return "1";
+  if (n === 2) return "2";
+  if (n <= 5) return "3-5";
+  if (n <= 15) return "6-15";
+  return "16+";
+}
+
+export function readCookie(cookieHeader: string, name: string): string | undefined {
+  const m = cookieHeader.match(new RegExp(`(?:^|;\\s*)${name}=([^;]*)`));
+  return m ? m[1] : undefined;
+}
+
+/**
+ * The daily counting value.
+ *
+ * HMAC over site, day, IP and user agent. It rotates at 00:00 UTC so nothing
+ * joins across days, and the site name plus a per site salt means the same
+ * person on two of Brendon's sites produces two unrelated values.
+ *
+ * That unlinkability is not a nicety. POPIA section 57 requires prior written
+ * authorisation from the Information Regulator before processing a unique
+ * identifier across separate responsible parties with the aim of linking them,
+ * and you may not proceed while an application is pending. The client sites are
+ * separate responsible parties. Sharing a salt between two sites would put the
+ * whole system inside section 57.
+ *
+ * The IP is used to compute this and is never stored.
+ */
+export async function visitorDay(
+  site: string, salt: string, ip: string, ua: string,
+): Promise<string> {
+  const key = await crypto.subtle.importKey(
+    "raw", new TextEncoder().encode(salt),
+    { name: "HMAC", hash: "SHA-256" }, false, ["sign"],
+  );
+  const sig = await crypto.subtle.sign(
+    "HMAC", key, new TextEncoder().encode(`${site}|${today()}|${ip}|${ua}`),
+  );
+  return Array.from(new Uint8Array(sig).slice(0, 12))
+    .map((b) => b.toString(16).padStart(2, "0")).join("");
+}
+
+function safeDecode(v: string | null): string | null {
+  if (!v) return null;
+  try { return decodeURIComponent(v).slice(0, 80); } catch { return v.slice(0, 80); }
+}
+
+export interface CollectResult {
+  /** Set-Cookie value, or null when nothing should be written to the device. */
+  setCookie: string | null;
+}
+
+/**
+ * Handle one beacon. Returns the cookie to set, if any.
+ *
+ * Never throws. A visitor must never see analytics fail, and the caller always
+ * answers 204 regardless of what happened in here.
+ */
+export async function collect(
+  body: any,
+  headers: EdgeHeaders,
+  cookieHeader: string,
+  cfg: CollectConfig,
+  waitUntil?: (p: Promise<unknown>) => void,
+): Promise<CollectResult> {
+  const none: CollectResult = { setCookie: null };
+
+  // The objection check comes first, before anything is read or computed.
+  // POPIA section 11(4) is absolute, with no compelling grounds override:
+  // once someone objects, processing stops.
+  if (readCookie(cookieHeader, OPT_OUT) === "1") return none;
+
+  if (!body || (body.event !== "view" && body.event !== "leave")) return none;
+
+  const ua = headers.get("user-agent") || "";
+  const ip =
+    headers.get("cf-connecting-ip") ||
+    headers.get("x-real-ip") ||
+    (headers.get("x-forwarded-for") || "").split(",")[0].trim() ||
+    "0.0.0.0";
+
+  const day = today();
+  const wantReturning = cfg.returning !== false;
+
+  let isReturning = 0;
+  // 'off' rather than '1', so a site that never measured returning visitors
+  // does not read on the dashboard as one where every visitor was new.
+  let visitBand = "off";
+  let setCookie: string | null = null;
+
+  if (wantReturning) {
+    const prior = readState(readCookie(cookieHeader, COOKIE));
+    let state: VisitState;
+    if (!prior) {
+      state = { f: day, n: 1, l: day };
+    } else {
+      // Distinct DAYS, not requests. Ten page views in one session is one
+      // visit, and counting it as ten would make the metric meaningless.
+      state = { f: prior.f, n: prior.n + (prior.l !== day ? 1 : 0), l: day };
+      isReturning = prior.f !== day ? 1 : 0;
+    }
+    visitBand = band(state.n);
+
+    // Only on a view. Rewriting it on every leave beacon costs bytes for nothing.
+    if (body.event === "view") {
+      setCookie =
+        `${COOKIE}=${encodeURIComponent(b64encode(JSON.stringify(state)))}; Path=/; ` +
+        `Max-Age=${TWO_YEARS}; HttpOnly; Secure; SameSite=Lax`;
+    }
+  }
+
+  const payload = {
+    site: cfg.site,
+    event: body.event,
+    path: typeof body.path === "string" ? body.path.slice(0, 512) : "/",
+    occurred_at: typeof body.occurred_at === "number" ? body.occurred_at : Date.now(),
+    dwell_ms: typeof body.dwell_ms === "number" ? body.dwell_ms : null,
+    visitor_day: await visitorDay(cfg.site, cfg.salt, ip, ua),
+    is_returning: isReturning,
+    visit_band: visitBand,
+    ua,
+    // Coarse location from edge headers. Never a raw IP. City level is named as
+    // acceptable in the UK regulator's own guidance.
+    country: headers.get("cf-ipcountry") || headers.get("x-vercel-ip-country"),
+    region: headers.get("x-vercel-ip-country-region") || headers.get("cf-region-code"),
+    city: safeDecode(headers.get("x-vercel-ip-city") || headers.get("cf-ipcity")),
+    ref_host: typeof body.ref === "string" ? body.ref.slice(0, 255) : null,
+  };
+
+  // Server to server, so no browser CORS and the site's own CSP is untouched.
+  //
+  // The failure handling here is deliberate and was learned the hard way while
+  // wiring the first site. A rejected fetch is a network error, but a 401 or a
+  // 500 from the collector RESOLVES normally, so a bare .catch() swallows it
+  // and every event vanishes while the site looks perfectly healthy. That is
+  // the exact silent failure this system exists to make impossible, so the
+  // status is checked and anything unexpected is logged where `wrangler tail`
+  // will show it. Still never thrown: a visitor must not pay for our outage.
+  const req = new Request(cfg.endpoint, {
+    method: "POST",
+    headers: { "content-type": "application/json", "x-bz-key": cfg.ingestSecret },
+    body: JSON.stringify(payload),
+  });
+
+  // A service binding where there is one, plain fetch otherwise. See the
+  // `binding` note above for why this is not merely a fast path on Cloudflare.
+  const send = (cfg.binding ? cfg.binding.fetch(req) : fetch(req, { signal: AbortSignal.timeout(2500) }))
+    .then((r) => {
+      if (!r.ok) console.warn(`bz: collector returned ${r.status} for ${cfg.site}`);
+    })
+    .catch((e) => {
+      console.warn(`bz: forward failed for ${cfg.site}: ${e && e.message ? e.message : e}`);
+    });
+
+  // Where the platform offers it, let the forward finish after the response has
+  // already gone back to the visitor. A dropped event beats a slow page.
+  if (waitUntil) waitUntil(send); else await send;
+
+  return { setCookie };
+}
+
+/** The opt out. Wired to a control on each site's privacy page. */
+export function optOutCookies(): string[] {
+  return [
+    `${OPT_OUT}=1; Path=/; Max-Age=${TWO_YEARS}; Secure; SameSite=Lax`,
+    `${COOKIE}=; Path=/; Max-Age=0; Secure; SameSite=Lax`,
+  ];
+}
+
+/** Undo an opt out, so withdrawing consent is as easy as giving it. */
+export function optInCookies(): string[] {
+  return [`${OPT_OUT}=; Path=/; Max-Age=0; Secure; SameSite=Lax`];
+}
