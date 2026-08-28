@@ -30,4 +30,4 @@ User-agent: YouBot
 Allow: /
 
 # Sitemap
-Sitemap: https://portfolio.giyant.co.za/sitemap.xml
+Sitemap: https://brendon.giyant.co.za/sitemap.xml

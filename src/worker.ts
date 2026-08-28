@@ -43,13 +43,58 @@ function cfg(env: Env) {
     ingestSecret: env.BZ_INGEST_SECRET,
     binding: env.COLLECTOR,
     endpoint: env.BZ_ENDPOINT || "https://analytics.giyant.co.za/e",
+    // MISSING UNTIL 28 AUGUST 2026, AND IT WAS QUIETLY BREAKING THE NUMBERS.
+    //
+    // core.ts reads the visitor's IP from a different header per platform, and
+    // consults ONLY the header that platform's own edge writes, because every
+    // other one is caller supplied and forgeable. With no platform declared it
+    // matched neither branch and fell through to the literal "0.0.0.0".
+    //
+    // That address then went into the visitor_day HMAC over site, day, IP and
+    // user agent. A constant IP means every visitor sharing a user agent on a
+    // given day collapsed into ONE value, so unique visitors were counted far
+    // too low and returning versus new was wrong with them. Nothing failed and
+    // nothing logged, the figures were simply untrue.
+    //
+    // Hardcoded rather than read from a variable, the same call the Next
+    // adapters make: a missing variable falls back to "vercel", which on a
+    // Worker means trusting headers a stranger can choose.
+    platform: "cloudflare" as const,
     returning: env.BZ_RETURNING !== "off",
   };
 }
 
+/**
+ * The one host this site answers on. Everything else redirects to it.
+ *
+ * Renamed from portfolio.giyant.co.za on 28 August 2026 on Brendon's
+ * instruction: on giyant.co.za, a subdomain called "portfolio" reads as
+ * Giyant's portfolio of work, and this is his personal site rather than the
+ * company's. "brendon" says whose it is at a glance.
+ *
+ * The old subdomain stays attached to this Worker on purpose, so every link
+ * already shared, and anything a crawler has already indexed, lands on a 308
+ * rather than nothing. That also catches the workers.dev address, which is the
+ * one a South African mobile carrier does not resolve at all.
+ */
+const CANONICAL_HOST = "brendon.giyant.co.za";
+
 export default {
   async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
     const url = new URL(request.url);
+
+    // Wrong host, right site. 308 so the method survives and so a crawler
+    // records the move as permanent and collapses the two hosts into one.
+    // Read off the request rather than a build time constant, so attaching
+    // another hostname later is a DNS change and never a redeploy.
+    const host = request.headers.get("host");
+    if (host && host !== CANONICAL_HOST) {
+      const to = new URL(url);
+      to.host = CANONICAL_HOST;
+      to.protocol = "https:";
+      to.port = "";
+      return Response.redirect(to.toString(), 308);
+    }
 
     if (url.pathname !== "/api/e") {
       // Everything else is the site exactly as it was.

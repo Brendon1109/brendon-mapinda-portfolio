@@ -10,7 +10,32 @@
   // hands every other request straight to ASSETS, so the site is unchanged.
   "main": "src/worker.ts",
 
+  // brendon.giyant.co.za is the address as of 28 August 2026. It was
+  // portfolio.giyant.co.za, and Brendon's call was that on giyant.co.za a
+  // subdomain called "portfolio" reads as Giyant's portfolio of work rather
+  // than his own site.
+  //
+  // The old subdomain is deliberately still listed. Declaring it here keeps it
+  // attached to this Worker, and src/worker.ts 308s it to the canonical host,
+  // so every link already shared still lands somewhere. Removing it would turn
+  // those into nothing at all. Drop it once search has moved over, which is
+  // months rather than days.
+  "routes": [
+    { "pattern": "brendon.giyant.co.za", "custom_domain": true },
+    { "pattern": "portfolio.giyant.co.za", "custom_domain": true }
+  ],
+
+  // workers.dev off. It is the address a South African mobile carrier does not
+  // resolve, it is not a name to hand anybody, and a third hostname serving the
+  // same pages is a third thing to keep out of the index.
+  "workers_dev": false,
+  "preview_urls": false,
+
   "vars": {
+    // The analytics site slug, and it stays "portfolio" on purpose. It is a
+    // builder side key in the collector's allowlist that no visitor ever sees,
+    // and renaming it would split this site's history into two slugs that no
+    // query joins back together. The public name changed, the key did not.
     "BZ_SITE": "portfolio"
   },
 
@@ -27,6 +52,20 @@
     // Named so the Worker script can fall through to it. Reserved in Pages
     // projects, which is one more reason everything here is a Worker.
     "binding": "ASSETS",
+
+    // THE WORKER RUNS FIRST, AND WITHOUT THIS LINE THE REDIRECT IS DEAD CODE.
+    //
+    // By default a request that matches a file in this directory is served
+    // straight off the assets binding and the script is never invoked at all.
+    // So /studio matched studio.html and returned 200 on the OLD hostname,
+    // while the 308 in src/worker.ts sat there looking perfectly correct.
+    // Verified live on 28 August 2026 before this line existed: the redirect
+    // fired for nothing a visitor actually asks for, because every page on this
+    // site IS a static file. /api/e worked only because no asset matches it.
+    //
+    // The cost is one Worker invocation per request instead of zero, against a
+    // free ceiling of 100,000 a day that the whole estate has never come near.
+    "run_worker_first": true,
 
     // Everything under public/ is served at a public URL and nothing outside it
     // is. That boundary is a directory rather than an ignore list on purpose:
