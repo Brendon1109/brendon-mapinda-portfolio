@@ -42,7 +42,7 @@ function cfg(env: Env) {
     salt: env.BZ_SALT,
     ingestSecret: env.BZ_INGEST_SECRET,
     binding: env.COLLECTOR,
-    endpoint: env.BZ_ENDPOINT || "https://breazy-analytics.breazy.workers.dev/e",
+    endpoint: env.BZ_ENDPOINT || "https://analytics.giyant.co.za/e",
     returning: env.BZ_RETURNING !== "off",
   };
 }

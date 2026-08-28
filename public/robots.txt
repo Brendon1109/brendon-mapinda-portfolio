@@ -30,4 +30,4 @@ User-agent: YouBot
 Allow: /
 
 # Sitemap
-Sitemap: https://brendon-mapinda-portfolio.breazy.workers.dev/sitemap.xml
+Sitemap: https://portfolio.giyant.co.za/sitemap.xml

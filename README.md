@@ -10,7 +10,7 @@ Personal brand site for **Brendon Mapinda**. A landing **chooser** sends visitor
 
 ## Live
 
-- **Production (Cloudflare Workers):** https://brendon-mapinda-portfolio.breazy.workers.dev
+- **Production (Cloudflare Workers):** https://portfolio.giyant.co.za
 - Deploy: `npx wrangler deploy` from the repo root. Cloudflare account `bmapinda303@gmail.com`, which is not the login the browser usually sits in, so check the account switcher before assuming a permissions problem.
 - Config: [wrangler.jsonc](wrangler.jsonc). Static assets only, no Worker script and still no build step.
 - Caching: [_headers](_headers) carries the one year immutable rule for `images/` and `videos/`.
