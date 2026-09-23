@@ -11,7 +11,7 @@ Personal brand site for **Brendon Mapinda**. A landing **chooser** sends visitor
 ## Live
 
 - **Production (Cloudflare Workers):** https://brendon.giyant.co.za
-- Deploy: `npx wrangler deploy` from the repo root. Cloudflare account `bmapinda303@gmail.com`, which is not the login the browser usually sits in, so check the account switcher before assuming a permissions problem.
+- Deploy: `npx wrangler deploy` from the repo root. The Worker is on the HeavL Cloudflare account since 23 September 2026 and `account_id` is pinned in [wrangler.jsonc](wrangler.jsonc), so wrangler never has to guess between the two accounts the login can see. In the dashboard, check the account switcher before assuming a permissions problem.
 - Config: [wrangler.jsonc](wrangler.jsonc). Static assets only, no Worker script and still no build step.
 - Caching: [_headers](_headers) carries the one year immutable rule for `images/` and `videos/`.
 - Not published: [.assetsignore](.assetsignore) lists the repo files that must never become a public URL. `assets.directory` is the repo root, so anything not in that list is served.

@@ -4,6 +4,14 @@
   "name": "brendon-mapinda-portfolio",
   "compatibility_date": "2026-08-07",
 
+  // The HeavL Cloudflare account, since 23 September 2026. A Worker can only
+  // take a hostname on a zone in its own account, and giyant.co.za is moving
+  // to this account, so the Worker moves with it. Pinned here so a deploy from
+  // a fresh clone never has to guess between the two accounts one login can
+  // see. The copy on the old account keeps serving until the nameservers move,
+  // then it is deleted.
+  "account_id": "1f5b74d6db6cdd640544b417d7a4e513",
+
   // Added 27 August 2026. This repo was static assets with no script, which
   // meant no server, which meant no way to set the first party cookie that
   // recognises a returning visitor on an iPhone. The script serves /api/e and
@@ -44,8 +52,12 @@
   // reaches the target, which reads exactly like a routing bug in your own
   // code. A service binding calls the collector's fetch handler directly, with
   // no network hop and no subrequest cost.
+  //
+  // The collector is g-analytics on the HeavL account since 23 September 2026,
+  // the same account as this Worker, because a service binding cannot cross
+  // accounts. It was breazy-analytics on the old account before the move.
   "services": [
-    { "binding": "COLLECTOR", "service": "breazy-analytics" }
+    { "binding": "COLLECTOR", "service": "g-analytics" }
   ],
 
   "assets": {

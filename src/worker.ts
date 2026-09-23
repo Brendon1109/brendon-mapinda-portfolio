@@ -25,8 +25,9 @@ import { collect, optOutCookies, optInCookies } from "./core";
 
 interface Env {
   ASSETS: { fetch(request: Request): Promise<Response> };
-  /** Service binding to the breazy-analytics Worker. See core.ts for why this
-   *  is mandatory on Cloudflare rather than an optimisation. */
+  /** Service binding to the g-analytics Worker on the same account. See
+   *  core.ts for why this is mandatory on Cloudflare rather than an
+   *  optimisation. */
   COLLECTOR?: { fetch(request: Request): Promise<Response> };
   BZ_SITE?: string;
   BZ_SALT?: string;
