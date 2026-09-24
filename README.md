@@ -4,7 +4,6 @@ Personal brand site for **Brendon Mapinda**. A landing **chooser** sends visitor
 
 - **Studio** ([studio.html](studio.html)) — premium photography & content: editorial portraits, brand & venue content, cinematic reels, events.
 - **Systems** ([systems.html](systems.html)) — software & automation: AI automation, custom builds, business optimization, AI discoverability.
-- **The Growth Partnership** — a monthly retainer combining both.
 
 > *Premium visuals. Smart systems. Business growth.*
 
@@ -33,7 +32,6 @@ Transport is not included in any session. The client arranges it or it is added 
 | Website | from R2,000 |
 | Custom Build | from R5,000 |
 | Automation | from R10,000 |
-| Growth Partnership | monthly plan, tailored on request |
 
 ## Lead capture
 
