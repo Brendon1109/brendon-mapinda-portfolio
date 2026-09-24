@@ -22,9 +22,11 @@ Personal brand site for **Brendon Mapinda**. A landing **chooser** sends visitor
 
 | Studio (sessions) | Price | | Studio (events) | Price |
 | --- | --- | --- | --- | --- |
-| Mini Session | R500 | | Basic Event | R2,000 |
-| Signature *(most booked)* | R850 | | Half-Day | R3,500 |
-| Premium Creative | R1,000 | | Full Event | R5,000 |
+| Mini Session | R1,000 | | Basic Event | R2,000 |
+| Signature *(most booked)* | R1,500 | | Half-Day | R3,500 |
+| Premium Creative | R2,000 | | Full Event | R5,000 |
+
+Transport is not included in any session. The client arranges it or it is added to the quote.
 
 | Systems | Price |
 | --- | --- |
