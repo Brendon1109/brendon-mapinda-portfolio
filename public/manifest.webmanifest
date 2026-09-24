@@ -1,10 +1,11 @@
 {
+  "id": "/",
   "name": "Brendon Mapinda, Modern Visuals and Smart Systems",
   "short_name": "Brendon Mapinda",
-  "description": "Cape Town creative studio and automation lab. Photography, video, websites and automation.",
+  "description": "Photography and video in Cape Town, plus websites, apps and automation for businesses anywhere.",
   "start_url": "/",
   "scope": "/",
-  "display": "browser",
+  "display": "minimal-ui",
   "background_color": "#111111",
   "theme_color": "#111111",
   "lang": "en-ZA",
@@ -26,6 +27,20 @@
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Photography and Content",
+      "short_name": "Studio",
+      "url": "/studio",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" }]
+    },
+    {
+      "name": "Software and Automation",
+      "short_name": "Systems",
+      "url": "/systems",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" }]
     }
   ]
 }
