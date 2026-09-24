@@ -1023,9 +1023,8 @@ h1 em, h2 em, h3 em {
     .landing-tagline .tag-line { display: block; }
     .landing-tagline .tag-dot { display: none; }
 }
-.landing-question { text-align: center; color: var(--paper); font-weight: 400; font-size: clamp(1.4rem, 3vw, 2.1rem); padding: 1.1rem 1.5rem 0.4rem; opacity: 0.95; }
+.landing-question { text-align: center; color: var(--paper); font-weight: 400; font-size: clamp(1.4rem, 3vw, 2.1rem); padding: 1.1rem 1.5rem 1.1rem; opacity: 0.95; }
 .landing-sub { text-align: center; color: var(--paper); font-size: 1rem; max-width: 600px; margin: 0 auto; padding: 0 1.5rem; opacity: 0.85; }
-.landing-bridge { text-align: center; color: rgba(244, 239, 231, 0.6); font-size: 0.85rem; max-width: 640px; margin: 0.5rem auto 0; padding: 0 1.5rem 0.5rem; line-height: 1.6; }
 .split { flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--line-dark); min-height: 64vh; }
 .split-panel { position: relative; display: flex; align-items: flex-end; padding: 2.5rem; text-decoration: none; overflow: hidden; min-height: 360px; }
 .split-studio { background: var(--ink); }
