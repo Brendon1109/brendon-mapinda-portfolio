@@ -31,8 +31,8 @@ Transport is not included in any session. The client arranges it or it is added 
 | Systems | Price |
 | --- | --- |
 | Website | from R2,000 |
-| Custom Build | from R3,500 |
-| Automation | from R5,000 |
+| Custom Build | from R5,000 |
+| Automation | from R10,000 |
 | Growth Partnership | monthly plan, tailored on request |
 
 ## Lead capture
