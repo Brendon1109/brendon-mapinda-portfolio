@@ -1160,7 +1160,9 @@ h1 em, h2 em, h3 em {
 /* ============================================================
    Selected work — Systems case studies
    ============================================================ */
-.case-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+/* Flex rather than grid so a short last row sits centred instead of hanging left. */
+.case-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.5rem; }
+.case-grid > .case-card { flex: 0 1 calc((100% - 3rem) / 3); }
 .case-card {
     display: flex;
     flex-direction: column;
@@ -1194,6 +1196,10 @@ h1 em, h2 em, h3 em {
 .case-shot-vibes { background: radial-gradient(circle at 28% 22%, rgba(201, 168, 122, 0.30), transparent 62%), #14110d; }
 .case-shot-tsakani { background: radial-gradient(circle at 72% 28%, rgba(158, 198, 224, 0.22), transparent 60%), #0f1115; }
 .case-shot-mm { background: radial-gradient(circle at 30% 78%, rgba(196, 104, 94, 0.26), transparent 60%), #15100f; }
+.case-shot-giyant { background: radial-gradient(circle at 70% 75%, rgba(201, 168, 122, 0.24), transparent 60%), #111111; }
+.case-shot-glory { background: radial-gradient(circle at 30% 25%, rgba(168, 142, 214, 0.24), transparent 60%), #111019; }
+.case-shot-toms { background: radial-gradient(circle at 72% 70%, rgba(127, 183, 126, 0.24), transparent 60%), #0e130e; }
+.case-shot-noq { background: radial-gradient(circle at 25% 70%, rgba(127, 199, 190, 0.24), transparent 60%), #0d1413; }
 .case-body { display: flex; flex-direction: column; flex: 1; padding: 1.6rem 1.6rem 1.75rem; }
 .case-cat { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold-text); margin-bottom: 0.65rem; }
 .case-body h3 { font-size: 1.35rem; margin-bottom: 0.55rem; }
@@ -1210,6 +1216,7 @@ h1 em, h2 em, h3 em {
 }
 .case-link { margin-top: auto; align-self: flex-start; }
 .case-link i { font-size: 0.78rem; }
+.case-private { font-size: 0.85rem; color: var(--slate); }
 
-@media (max-width: 1024px) { .case-grid { grid-template-columns: 1fr 1fr; } }
-@media (max-width: 700px) { .case-grid { grid-template-columns: 1fr; } }
+@media (max-width: 1024px) { .case-grid > .case-card { flex-basis: calc((100% - 1.5rem) / 2); } }
+@media (max-width: 700px) { .case-grid > .case-card { flex-basis: 100%; } }
