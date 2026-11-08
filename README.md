@@ -74,6 +74,6 @@ HTML5 + modern CSS (custom properties, grid, fluid type), vanilla JS (nav, revea
 
 ## Links
 
-- Instagram: <https://www.instagram.com/framebyframeios> · TikTok: <https://www.tiktok.com/@framebyframeios>
+- Instagram: <https://www.instagram.com/brendonmapinda.studio> · TikTok: <https://www.tiktok.com/@framebyframeios>
 - LinkedIn: <https://www.linkedin.com/in/brendon-mapinda-20b6911a0/> · GitHub: <https://github.com/Brendon1109>
 - WhatsApp: <https://wa.me/27748226711>
