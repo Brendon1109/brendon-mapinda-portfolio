@@ -33,6 +33,12 @@ Transport is not included in any session. The client arranges it or it is added 
 | Automation | from R7,500 |
 | Custom Build | from R15,000 |
 
+| Monthly care (first month free with every build) | Price |
+| --- | --- |
+| Hosting (changes paid per request: R250 small, R450/hour bigger) | R250/month or R2,500/year |
+| Site Care (up to 4 small changes + monthly report) | R850/month |
+| Systems Care (running costs, monitoring, same-day fixes) | R1,500/month |
+
 ## Lead capture
 
 Each detail page has an enquiry form. With no setup it opens **WhatsApp** pre-filled. To receive enquiries by email, get a free key at <https://web3forms.com> and set `WEB3FORMS_ACCESS_KEY` in [js/script.js](js/script.js). (See "Database" below for owning leads in a DB.)

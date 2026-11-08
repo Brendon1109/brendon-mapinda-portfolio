@@ -48,7 +48,10 @@
         "offers": [
             { "@type": "Offer", "name": "Website", "price": "3500", "priceCurrency": "ZAR" },
             { "@type": "Offer", "name": "Automation", "price": "7500", "priceCurrency": "ZAR" },
-            { "@type": "Offer", "name": "Custom Build", "price": "15000", "priceCurrency": "ZAR" }
+            { "@type": "Offer", "name": "Custom Build", "price": "15000", "priceCurrency": "ZAR" },
+            { "@type": "Offer", "name": "Hosting (monthly care)", "priceSpecification": { "@type": "UnitPriceSpecification", "price": "250", "priceCurrency": "ZAR", "unitText": "MONTH" } },
+            { "@type": "Offer", "name": "Site Care (monthly care)", "priceSpecification": { "@type": "UnitPriceSpecification", "price": "850", "priceCurrency": "ZAR", "unitText": "MONTH" } },
+            { "@type": "Offer", "name": "Systems Care (monthly care)", "priceSpecification": { "@type": "UnitPriceSpecification", "price": "1500", "priceCurrency": "ZAR", "unitText": "MONTH" } }
         ]
     }
     </script>
@@ -61,6 +64,7 @@
         "mainEntity": [
             { "@type": "Question", "name": "What software and automation services does Brendon Mapinda offer?", "acceptedAnswer": { "@type": "Answer", "text": "AI automation and AI agents, custom web app and software builds, business-process optimization, and AI discoverability (getting products recommended inside ChatGPT, Gemini, Claude, Meta AI, Perplexity and AI search). Background as an AI-augmented data and migration engineer; 15+ applications built and deployed in under a year." } },
             { "@type": "Question", "name": "How much does automation or a custom build cost?", "acceptedAnswer": { "@type": "Answer", "text": "Indicative ranges in South African Rand: a Website from R3,500, most landing between R3,500 and R8,000. An Automation from R7,500, most landing between R7,500 and R15,000. A Custom Build from R15,000, most landing between R15,000 and R40,000. Every project is scoped to the problem." } },
+            { "@type": "Question", "name": "What does it cost after launch?", "acceptedAnswer": { "@type": "Answer", "text": "Every build gets its first month of care free. After that: Hosting is R250 a month (or R2,500 a year) for the domain, hosting, SSL, backups, uptime checks and security updates, with changes paid only when you ask for them (R250 for a small change, R450 an hour for bigger work). Site Care is R850 a month and adds up to 4 small changes a month plus a monthly visitors and enquiries report. Systems Care is R1,500 a month for apps and automations, covering running costs, monitoring and same-day fixes when something breaks." } },
             { "@type": "Question", "name": "Do you work remotely?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Software and automation work is delivered for clients across South Africa and remotely worldwide." } },
             { "@type": "Question", "name": "What is AI discoverability?", "acceptedAnswer": { "@type": "Answer", "text": "Structuring a website and its content so AI answer engines like ChatGPT, Gemini, Claude, Meta AI, Perplexity and Google AI Overviews can find, understand and recommend it, using structured data, clean content, an llms.txt file and crawler friendly configuration." } }
         ]
@@ -250,6 +254,29 @@
                     <a href="#contact" class="btn btn-outline-light" data-prefill="App or software build">Start a build</a>
                 </article>
             </div>
+            <div class="care-block">
+                <div class="care-head">
+                    <h3>After launch: monthly care</h3>
+                    <p>Every build gets its first month free. Pick the plan that matches how often you need changes. A quiet site stays on Hosting and only pays for the changes it asks for.</p>
+                </div>
+                <div class="care-grid">
+                    <article class="care-plan">
+                        <header><h4>Hosting</h4><div class="care-price">R250<span>/month</span></div></header>
+                        <p>Domain, hosting, SSL, backups, uptime checks and security updates. Changes only when you need them: R250 for a small one (text, a photo, prices or hours), R450 an hour for bigger work.</p>
+                        <small>Or R2,500 a year</small>
+                    </article>
+                    <article class="care-plan">
+                        <header><h4>Site Care</h4><div class="care-price">R850<span>/month</span></div></header>
+                        <p>Hosting, plus up to 4 small changes a month and a monthly report on your visitors and enquiries.</p>
+                        <small>Best if you update often</small>
+                    </article>
+                    <article class="care-plan">
+                        <header><h4>Systems Care</h4><div class="care-price">R1,500<span>/month</span></div></header>
+                        <p>Running costs, monitoring and same-day fixes when something breaks, for apps and automations. Changes at R450 an hour.</p>
+                        <small>For custom builds and automations</small>
+                    </article>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -291,6 +318,7 @@
                 <details class="faq-item"><summary>What do you build?</summary><p>Websites, booking and ordering systems, automation, reporting dashboards and AI workflows. Background in data and software engineering, with 15+ apps built and deployed in under a year.</p></details>
                 <details class="faq-item"><summary>What's your background?</summary><p>I work in data and software, including enterprise platform work across Snowflake, Microsoft Fabric, Azure Data Factory, Databricks and Power BI. For the businesses I help directly, that just means it is built properly and it lasts.</p></details>
                 <details class="faq-item"><summary>What does it cost?</summary><p>A website starts from <strong>R3,500</strong> and most land between R3,500 and R8,000. An automation starts from <strong>R7,500</strong> and most land between R7,500 and R15,000. A custom build starts from <strong>R15,000</strong> and most land between R15,000 and R40,000. Every project is scoped to the job, so book a free call and we will size it properly.</p></details>
+                <details class="faq-item"><summary>What does it cost after launch?</summary><p>Your first month of care is free. After that, <strong>Hosting</strong> is R250 a month (or R2,500 a year) and you only pay for changes when you ask for them: R250 for a small change, R450 an hour for bigger work. <strong>Site Care</strong> is R850 a month with up to 4 small changes and a monthly report. <strong>Systems Care</strong> is R1,500 a month for apps and automations, with same-day fixes when something breaks.</p></details>
                 <details class="faq-item"><summary>Can you get my business found when people ask AI?</summary><p>Yes. That is the AI discoverability service: structured data, clean content, an <code>llms.txt</code> file and crawler friendly setup, so ChatGPT, Gemini, Claude and Meta AI can find and recommend you. This site uses the same techniques.</p></details>
                 <details class="faq-item"><summary>Do you work remotely?</summary><p>Yes. Software and automation work is delivered for clients across South Africa and remotely worldwide.</p></details>
             </div>

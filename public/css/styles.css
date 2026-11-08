@@ -674,6 +674,23 @@ h1 em, h2 em, h3 em {
 }
 .offer-card-featured .btn-primary { background: var(--gold); color: var(--ink); }
 .offer-card-featured .btn-primary:hover { background: var(--paper); color: var(--ink); }
+/* Monthly care (Systems engagements) */
+.care-block { margin-top: 3rem; padding-top: 2.5rem; border-top: 1px solid var(--line-dark); }
+.care-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 2rem; margin-bottom: 1.5rem; }
+.care-head h3 { font-size: 1.5rem; color: var(--paper); }
+.care-head p { color: rgba(244, 239, 231, 0.65); font-size: 0.95rem; line-height: 1.6; max-width: 560px; }
+.care-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+.care-plan { border: 1px solid var(--line-dark); border-radius: var(--radius-sm); padding: 1.25rem 1.4rem; background: rgba(255, 255, 255, 0.02); }
+.care-plan header { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; margin-bottom: 0.5rem; }
+.care-plan h4 { font-family: var(--font-display); font-weight: 400; font-size: 1.15rem; color: var(--paper); }
+.care-price { font-family: var(--font-display); font-size: 1.3rem; color: var(--gold); white-space: nowrap; }
+.care-price span { font-family: var(--font-body); font-size: 0.78rem; color: rgba(244, 239, 231, 0.55); margin-left: 2px; }
+.care-plan p { color: rgba(244, 239, 231, 0.75); font-size: 0.9rem; line-height: 1.6; }
+.care-plan small { display: block; margin-top: 0.6rem; color: var(--gold); font-size: 0.78rem; letter-spacing: 0.02em; }
+@media (max-width: 1024px) {
+    .care-head { flex-direction: column; align-items: flex-start; gap: 0.5rem; max-width: 460px; margin: 0 auto 1.25rem; }
+    .care-grid { grid-template-columns: 1fr; max-width: 460px; margin: 0 auto; }
+}
 
 /* Growth Partnership ---------------------------------------- */
 .partnership-inner {
