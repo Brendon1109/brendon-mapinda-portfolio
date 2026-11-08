@@ -29,7 +29,7 @@ Transport is not included in any session. The client arranges it or it is added 
 
 | Systems | Price |
 | --- | --- |
-| Website | from R2,000 |
+| Website | from R3,500 |
 | Custom Build | from R5,000 |
 | Automation | from R10,000 |
 
