@@ -1207,6 +1207,16 @@ h1 em, h2 em, h3 em {
 .case-icon { width: 72px; height: 72px; border-radius: 18px; object-fit: cover; margin-bottom: 1.3rem; box-shadow: 0 8px 20px -8px rgba(17, 17, 17, 0.35); }
 .case-link { margin-top: auto; align-self: flex-start; }
 .case-link i { font-size: 0.78rem; }
+/* Where a card has no public link: a quiet status line in the link's place, muted and with no arrow, so it never reads as tappable. */
+.case-note { margin-top: auto; align-self: flex-start; display: inline-flex; align-items: center; gap: 0.5rem; color: var(--slate); font-size: 0.88rem; letter-spacing: 0.02em; cursor: default; }
+.case-note i { color: var(--gold-text); font-size: 0.72rem; }
+.case-note .fa-circle { font-size: 0.42rem; }
 
 @media (max-width: 1024px) { .case-grid > .case-card { flex-basis: calc((100% - 1.5rem) / 2); } }
+/* Two to a row, an odd count leaves the last card alone. It takes the whole row with its icon beside the words, so it reads as meant. */
+@media (min-width: 701px) and (max-width: 1024px) {
+    .case-grid > .case-card:last-child:nth-child(odd) { flex-basis: 100%; }
+    .case-grid > .case-card:last-child:nth-child(odd) .case-body { display: grid; grid-template-columns: 72px 1fr; column-gap: 1.6rem; justify-items: start; }
+    .case-grid > .case-card:last-child:nth-child(odd) .case-icon { grid-row: span 4; margin-bottom: 0; }
+}
 @media (max-width: 700px) { .case-grid > .case-card { flex-basis: 100%; } }
